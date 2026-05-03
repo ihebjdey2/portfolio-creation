@@ -217,68 +217,77 @@ export default function Home() {
       <Header />
 
       {/* Hero Section */}
-      <section className="max-w-7xl mx-auto px-6 py-20 md:py-32">
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6">
-            <div className="space-y-2">
-              <h1 className="text-5xl md:text-6xl font-bold">{t.hero.title}</h1>
-              <p className="text-2xl text-primary">{t.hero.subtitle}</p>
-            </div>
-
-            <p className="text-lg text-muted-foreground leading-relaxed max-w-lg">
-              {t.hero.description}
-            </p>
-
-            <div className="flex gap-4 pt-4 flex-wrap">
-              <a
-                href="mailto:ihebjdey2@gmail.com"
-                className="px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors flex items-center gap-2"
-              >
-                <Mail size={20} />
-                {t.hero.getInTouch}
-              </a>
-              <a
-                href="#projects"
-                className="px-6 py-3 border border-primary text-primary rounded-lg hover:bg-primary/10 transition-colors"
-              >
-                {t.hero.viewProjects}
-              </a>
-            </div>
-
-            <div className="flex gap-4 pt-4">
-              <a
-                href="https://github.com/ihebjdey"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <Github size={24} />
-              </a>
-              <a
-                href="https://linkedin.com/in/ihebjdey"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <Linkedin size={24} />
-              </a>
-              <a
-                href="mailto:ihebjdey2@gmail.com"
-                className="text-muted-foreground hover:text-foreground transition-colors"
-              >
-                <Mail size={24} />
-              </a>
-            </div>
-          </div>
-
-          <div className="relative hidden md:flex justify-center">
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-accent/30 rounded-3xl blur-2xl -z-10"></div>
+      <section className="min-h-screen flex items-center justify-center py-12 px-6">
+        <div className="max-w-7xl mx-auto w-full">
+          {/* Profile Picture and Name Section */}
+          <div className="flex flex-col md:flex-row gap-8 md:gap-12 mb-12 md:mb-16 items-start md:items-start">
+            {/* Left: Profile Picture */}
+            <div className="relative w-32 md:w-48 flex-shrink-0">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/40 to-accent/40 rounded-3xl blur-3xl -z-10"></div>
               <img
                 src="/profile.jpg"
                 alt="Jdey Iheb Profile"
-                className="w-full max-w-md rounded-3xl border-2 border-primary/50 object-cover shadow-2xl"
+                className="w-full rounded-3xl border-2 border-primary/40 object-cover shadow-2xl"
               />
+            </div>
+
+            {/* Right: Name, Title and Description */}
+            <div className="flex-1">
+              <div className="mb-6">
+                <h1 className="text-4xl md:text-5xl font-bold mb-2">
+                  Jdey <span className="text-primary">Iheb</span>
+                </h1>
+                <p className="text-xl md:text-2xl text-primary font-semibold mb-4">
+                  {t.hero.fullStack}
+                </p>
+              </div>
+
+              <p className="text-lg text-muted-foreground mb-8 max-w-2xl leading-relaxed">
+                {t.hero.description}
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4 mb-8">
+                <a
+                  href="#contact"
+                  className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:opacity-90 transition-opacity w-fit"
+                >
+                  {t.hero.cta}
+                </a>
+                <a
+                  href="https://github.com/ihebjdey"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-8 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/10 transition-colors w-fit"
+                >
+                  GitHub
+                </a>
+              </div>
+
+              {/* Social Links */}
+              <div className="flex gap-6 items-center">
+                <a
+                  href="https://github.com/ihebjdey"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
+                  <Github size={24} />
+                </a>
+                <a
+                  href="https://linkedin.com/in/ihebjdey"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
+                  <Linkedin size={24} />
+                </a>
+                <a
+                  href="mailto:ihebjdey2@gmail.com"
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
+                  <Mail size={24} />
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -384,28 +393,34 @@ export default function Home() {
 
       {/* CV Section */}
       <section id="cv" className="max-w-7xl mx-auto px-6 py-20 border-t border-border">
-        <div className="text-center space-y-8">
-          <div className="space-y-2">
-            <h2 className="text-4xl font-bold">{t.cv.title}</h2>
-            <p className="text-lg text-muted-foreground">{t.cv.subtitle}</p>
+        <div className="text-center space-y-12">
+          <div className="space-y-4">
+            <h2 className="text-4xl md:text-5xl font-bold">{t.cv.title}</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{t.cv.subtitle}</p>
           </div>
 
-          <div className="flex flex-col md:flex-row items-center justify-center gap-6">
+          <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
             <a
               href="/cv/Jdey-Iheb-CV-English.pdf"
               download
-              className="px-8 py-4 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors text-lg font-medium flex items-center gap-2"
+              className="group px-8 py-6 bg-primary text-primary-foreground rounded-xl hover:shadow-lg transition-all duration-300 font-semibold flex items-center justify-center gap-3 text-lg"
             >
-              <Download size={24} />
-              {t.cv.english}
+              <Download size={24} className="group-hover:translate-y-1 transition-transform" />
+              <div>
+                <div>{t.cv.english}</div>
+                <div className="text-sm text-primary-foreground/80">PDF Format</div>
+              </div>
             </a>
             <a
               href="/cv/Jdey-Iheb-CV-French.pdf"
               download
-              className="px-8 py-4 border border-primary text-primary rounded-lg hover:bg-primary/10 transition-colors text-lg font-medium flex items-center gap-2"
+              className="group px-8 py-6 border-2 border-primary text-primary rounded-xl hover:bg-primary/10 hover:shadow-lg transition-all duration-300 font-semibold flex items-center justify-center gap-3 text-lg"
             >
-              <Download size={24} />
-              {t.cv.french}
+              <Download size={24} className="group-hover:translate-y-1 transition-transform" />
+              <div>
+                <div>{t.cv.french}</div>
+                <div className="text-sm text-primary/80">Format PDF</div>
+              </div>
             </a>
           </div>
         </div>
