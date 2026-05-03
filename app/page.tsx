@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+
 import { Mail, Github, Linkedin, ExternalLink, Code2, Zap, Globe, Download } from 'lucide-react'
 import { useLanguage } from '@/lib/language-context'
 import { translations } from '@/lib/translations'
@@ -207,17 +207,7 @@ const skillsData = {
 
 export default function Home() {
   const { language } = useLanguage()
-  const [mounted, setMounted] = useState(false)
-  
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-  
   const t = translations[language]
-  
-  if (!mounted) {
-    return null
-  }
   const experiences = experiencesData[language]
   const projects = projectsData[language]
   const skills = skillsData[language]
