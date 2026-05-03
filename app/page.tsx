@@ -1,7 +1,7 @@
 'use client'
 
 
-import { Mail, Github, Linkedin, ExternalLink, Code2, Zap, Globe, Download } from 'lucide-react'
+import { Mail, Github, Linkedin, ExternalLink, Download } from 'lucide-react'
 import { useLanguage } from '@/lib/language-context'
 import { translations } from '@/lib/translations'
 import { Header } from '@/components/header'
@@ -271,22 +271,14 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="relative hidden md:block">
-            <div className="bg-gradient-to-br from-primary/20 to-accent/20 rounded-2xl p-8 border border-primary/30">
-              <div className="space-y-4">
-                <div className="flex items-center gap-3">
-                  <Code2 className="text-primary" size={32} />
-                  <span className="text-lg font-semibold">{t.hero.fullStack}</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Zap className="text-primary" size={32} />
-                  <span className="text-lg font-semibold">{t.hero.realTime}</span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Globe className="text-primary" size={32} />
-                  <span className="text-lg font-semibold">{t.hero.devops}</span>
-                </div>
-              </div>
+          <div className="relative hidden md:flex justify-center">
+            <div className="relative">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-accent/30 rounded-3xl blur-2xl -z-10"></div>
+              <img
+                src="/profile.jpg"
+                alt="Jdey Iheb Profile"
+                className="w-full max-w-md rounded-3xl border-2 border-primary/50 object-cover shadow-2xl"
+              />
             </div>
           </div>
         </div>
