@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Menu, X, Moon, Sun, Globe } from 'lucide-react'
 import { useTheme } from '@/lib/theme-context'
 import { useLanguage, Language } from '@/lib/language-context'
@@ -17,13 +17,29 @@ const navigation = [
 
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const { theme, toggleTheme } = useTheme()
   const { language, setLanguage } = useLanguage()
-
   const t = translations[language]
+  
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const handleLanguageChange = (lang: Language) => {
     setLanguage(lang)
+  }
+
+  if (!mounted) {
+    return (
+      <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex h-16 items-center justify-between">
+            <div className="text-xl font-bold text-foreground">Portfolio</div>
+          </div>
+        </div>
+      </header>
+    )
   }
 
   return (
