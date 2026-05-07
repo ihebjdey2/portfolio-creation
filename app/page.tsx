@@ -1,11 +1,18 @@
 'use client'
 
-
-import { Mail, Github, Linkedin, Download } from 'lucide-react'
+import { Mail, Github, Linkedin, Download, ExternalLink, ArrowRight, Code, Zap, Server } from 'lucide-react'
 import { useLanguage } from '@/lib/language-context'
 import { translations } from '@/lib/translations'
 import { Header } from '@/components/header'
 import { ProjectCard } from '@/components/project-card'
+import { useState } from 'react'
+
+const skillsData = {
+  frontend: ['React', 'Next.js', 'Flutter', 'Tailwind CSS', 'TypeScript'],
+  backend: ['Node.js', 'Express', 'PostgreSQL', 'MongoDB', 'Socket.io'],
+  database: ['PostgreSQL', 'MongoDB', 'Firebase', 'Redis'],
+  tools: ['Docker', 'Jenkins', 'Git', 'CI/CD', 'Hugging Face', 'TensorFlow'],
+}
 
 const experiencesData = {
   en: [
@@ -136,6 +143,7 @@ const projectsData = {
       codeStructure: 'Modular Node.js backend with route handlers for each service, PostgreSQL with optimized queries for tracking data, React dashboards for admin/supervisor management, Flutter app with state management.',
       impact: 'Revolutionized transport booking in Tunisia, serving 10,000+ monthly active users with sub-second reservation processing and 99.5% uptime.',
       futureImprovements: 'Expand to other African cities, implement machine learning for dynamic pricing, add integrated payment system, develop native mobile apps.',
+      featured: true,
     },
     {
       title: 'GamiX - Multiplayer Mobile Game',
@@ -160,6 +168,7 @@ const projectsData = {
       codeStructure: 'Backend: Modular Node.js services, DAOs for database abstraction, middleware for authentication. Frontend: Unity scripts organized by game systems.',
       impact: 'Delivered fully playable multiplayer game with 100+ concurrent users and sub-100ms latency.',
       futureImprovements: 'Cloud-based matchmaking, advanced anti-cheat systems, seasonal content updates.',
+      featured: false,
     },
     {
       title: 'Multi-Platform Clinic Management',
@@ -184,6 +193,7 @@ const projectsData = {
       codeStructure: 'Centralized Symfony backend with Firebase integration, Platform-specific clients using MVC pattern.',
       impact: 'Streamlined clinic operations, reduced appointment management time by 60%.',
       futureImprovements: 'Telemedicine video consultation integration, AI-powered diagnosis assistance.',
+      featured: false,
     },
   ],
   fr: [
@@ -211,6 +221,7 @@ const projectsData = {
       codeStructure: 'Backend Node.js modulaire avec gestionnaires route, PostgreSQL requêtes optimisées, tableaux de bord React, app Flutter avec gestion état.',
       impact: 'Révolutionné la réservation de transports en Tunisie, 10,000+ utilisateurs actifs mensuels avec traitement réservations sub-second.',
       futureImprovements: 'Expansion vers autres villes africaines, ML pour tarification dynamique, système paiement intégré.',
+      featured: true,
     },
     {
       title: 'GamiX - Jeu Mobile Multijoueur',
@@ -235,6 +246,7 @@ const projectsData = {
       codeStructure: 'Backend Node.js modulaire, abstraction base de données, middleware authentification. Frontend scripts Unity par systèmes jeu.',
       impact: 'Jeu multijoueur jouable 100+ utilisateurs simultanés, latence <100ms.',
       futureImprovements: 'Matchmaking cloud, systèmes anti-cheat avancés, mises à jour contenu saisonnier.',
+      featured: false,
     },
     {
       title: 'Gestion de Clinique Multi-Plateforme',
@@ -259,111 +271,85 @@ const projectsData = {
       codeStructure: 'Backend Symfony centralisé Firebase, clients plateforme pattern MVC.',
       impact: 'Rationalisation opérations clinique, réduction 60% gestion rendez-vous.',
       futureImprovements: 'Téléconsultation vidéo, assistance diagnostic IA.',
+      featured: false,
     },
   ],
 }
 
-const skillsData = {
-  en: {
-    languages: ['JavaScript/TypeScript', 'Dart', 'Java', 'Python', 'C/C++/C#', 'Solidity'],
-    backend: ['Node.js', 'Express', 'Spring Boot', 'Flask', 'ASP.NET', 'WebSockets', 'REST'],
-    frontend: ['React', 'Flutter', 'Vue.js', 'Bootstrap', 'Tailwind CSS'],
-    databases: ['PostgreSQL', 'MySQL', 'MongoDB', 'Firebase', 'PL/SQL'],
-    devops: ['Docker', 'Jenkins', 'SonarQube', 'Prometheus', 'Grafana'],
-    ml: ['TensorFlow', 'PyTorch', 'Scikit-learn', 'OpenCV'],
-    tools: ['Git', 'GitHub', 'GitLab', 'Jira', 'Agile/Scrum'],
-  },
-  fr: {
-    languages: ['JavaScript/TypeScript', 'Dart', 'Java', 'Python', 'C/C++/C#', 'Solidity'],
-    backend: ['Node.js', 'Express', 'Spring Boot', 'Flask', 'ASP.NET', 'WebSockets', 'REST'],
-    frontend: ['React', 'Flutter', 'Vue.js', 'Bootstrap', 'Tailwind CSS'],
-    databases: ['PostgreSQL', 'MySQL', 'MongoDB', 'Firebase', 'PL/SQL'],
-    devops: ['Docker', 'Jenkins', 'SonarQube', 'Prometheus', 'Grafana'],
-    ml: ['TensorFlow', 'PyTorch', 'Scikit-learn', 'OpenCV'],
-    tools: ['Git', 'GitHub', 'GitLab', 'Jira', 'Agile/Scrum'],
-  },
-}
-
 export default function Home() {
   const { language } = useLanguage()
+  const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' })
+  
   const t = translations[language]
   const experiences = experiencesData[language]
   const projects = projectsData[language]
-  const skills = skillsData[language]
+  const featuredProject = projects.find(p => p.featured)
+  const otherProjects = projects.filter(p => !p.featured)
+
+  const handleContactChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setContactForm({ ...contactForm, [e.target.name]: e.target.value })
+  }
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    console.log('Form submitted:', contactForm)
+    // Handle form submission
+  }
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <main className="bg-background text-foreground">
       <Header />
 
       {/* Hero Section */}
-      <section className="min-h-screen flex items-center justify-center py-12 px-6">
+      <section className="min-h-[90vh] flex items-center justify-center py-20 px-6">
         <div className="max-w-7xl mx-auto w-full">
-          {/* Profile Picture and Name Section */}
-          <div className="flex flex-col md:flex-row gap-8 md:gap-12 mb-12 md:mb-16 items-start md:items-start">
-            {/* Left: Profile Picture */}
-            <div className="relative w-32 md:w-48 flex-shrink-0">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/40 to-accent/40 rounded-3xl blur-3xl -z-10"></div>
+          <div className="flex flex-col md:flex-row gap-12 items-center md:items-start">
+            {/* Profile Picture */}
+            <div className="relative w-40 md:w-56 flex-shrink-0">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-accent/30 rounded-3xl blur-3xl -z-10"></div>
               <img
                 src="/profile.jpg"
-                alt="Jdey Iheb Profile"
-                className="w-full rounded-3xl border-2 border-primary/40 object-cover shadow-2xl"
+                alt="Jdey Iheb"
+                className="w-full rounded-3xl border-2 border-primary/30 object-cover shadow-2xl"
               />
             </div>
 
-            {/* Right: Name, Title and Description */}
+            {/* Hero Content */}
             <div className="flex-1">
-              <div className="mb-6">
-                <h1 className="text-4xl md:text-5xl font-bold mb-2">
-                  Jdey <span className="text-primary">Iheb</span>
-                </h1>
-                <p className="text-xl md:text-2xl text-primary font-semibold mb-4">
-                  {t.hero.fullStack}
-                </p>
-              </div>
-
-              <p className="text-lg text-muted-foreground mb-8 max-w-2xl leading-relaxed">
+              <p className="text-primary font-semibold text-lg mb-2">{t.hero.tagline}</p>
+              <h1 className="text-5xl md:text-6xl font-bold mb-4 text-balance">
+                {t.hero.title}
+              </h1>
+              <p className="text-2xl text-muted-foreground mb-6 text-balance">{t.hero.subtitle}</p>
+              <p className="text-lg text-muted-foreground mb-10 max-w-2xl leading-relaxed">
                 {t.hero.description}
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 mb-8">
+              <div className="flex flex-col sm:flex-row gap-4 mb-10">
                 <a
-                  href="#contact"
-                  className="px-8 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:opacity-90 transition-opacity w-fit"
+                  href="#projects"
+                  className="px-8 py-4 bg-primary text-primary-foreground rounded-xl font-semibold hover:opacity-90 transition-all duration-300 flex items-center justify-center gap-2 w-fit"
                 >
-                  {t.hero.cta}
+                  {t.hero.viewProjects}
+                  <ArrowRight size={20} />
                 </a>
                 <a
-                  href="https://github.com/ihebjdey"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-8 py-3 border border-primary text-primary rounded-lg font-semibold hover:bg-primary/10 transition-colors w-fit"
+                  href="#contact"
+                  className="px-8 py-4 border-2 border-primary text-primary rounded-xl font-semibold hover:bg-primary/10 transition-all duration-300 w-fit"
                 >
-                  GitHub
+                  {t.hero.contactMe}
                 </a>
               </div>
 
               {/* Social Links */}
-              <div className="flex gap-6 items-center">
-                <a
-                  href="https://github.com/ihebjdey"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                >
+              <div className="flex gap-4 items-center">
+                <a href="https://github.com/ihebjdey" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
                   <Github size={24} />
                 </a>
-                <a
-                  href="https://linkedin.com/in/ihebjdey"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                >
+                <a href="https://linkedin.com/in/ihebjdey" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
                   <Linkedin size={24} />
                 </a>
-                <a
-                  href="mailto:ihebjdey2@gmail.com"
-                  className="text-muted-foreground hover:text-primary transition-colors"
-                >
+                <a href="mailto:ihebjdey2@gmail.com" className="text-muted-foreground hover:text-primary transition-colors">
                   <Mail size={24} />
                 </a>
               </div>
@@ -372,35 +358,117 @@ export default function Home() {
         </div>
       </section>
 
+      {/* About Section */}
+      <section className="max-w-7xl mx-auto px-6 py-20 border-t border-border">
+        <div className="grid md:grid-cols-3 gap-12">
+          <div className="md:col-span-1">
+            <h2 className="text-4xl font-bold">{t.about.title}</h2>
+          </div>
+          <div className="md:col-span-2">
+            <p className="text-lg text-muted-foreground mb-8 leading-relaxed">{t.about.bio}</p>
+            <ul className="space-y-4">
+              {t.about.highlights.map((highlight, idx) => (
+                <li key={idx} className="flex items-start gap-3">
+                  <Code className="text-primary flex-shrink-0 mt-1" size={20} />
+                  <span className="text-muted-foreground">{highlight}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* Skills Section */}
+      <section className="max-w-7xl mx-auto px-6 py-20 border-t border-border">
+        <h2 className="text-4xl font-bold mb-12">{t.skills.title}</h2>
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div>
+            <h3 className="text-lg font-semibold mb-4 text-primary">{t.skills.frontend}</h3>
+            <div className="space-y-2">
+              {skillsData.frontend.map((skill) => (
+                <div key={skill} className="px-3 py-2 bg-card border border-border rounded-lg text-sm">
+                  {skill}
+                </div>
+              ))}
+            </div>
+          </div>
+          <div>
+            <h3 className="text-lg font-semibold mb-4 text-primary">{t.skills.backend}</h3>
+            <div className="space-y-2">
+              {skillsData.backend.map((skill) => (
+                <div key={skill} className="px-3 py-2 bg-card border border-border rounded-lg text-sm">
+                  {skill}
+                </div>
+              ))}
+            </div>
+          </div>
+          <div>
+            <h3 className="text-lg font-semibold mb-4 text-primary">{t.skills.database}</h3>
+            <div className="space-y-2">
+              {skillsData.database.map((skill) => (
+                <div key={skill} className="px-3 py-2 bg-card border border-border rounded-lg text-sm">
+                  {skill}
+                </div>
+              ))}
+            </div>
+          </div>
+          <div>
+            <h3 className="text-lg font-semibold mb-4 text-primary">{t.skills.tools}</h3>
+            <div className="space-y-2">
+              {skillsData.tools.map((skill) => (
+                <div key={skill} className="px-3 py-2 bg-card border border-border rounded-lg text-sm">
+                  {skill}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Project Section */}
+      {featuredProject && (
+        <section className="max-w-7xl mx-auto px-6 py-20 border-t border-border">
+          <div className="mb-8">
+            <p className="text-primary font-semibold text-sm uppercase tracking-wide mb-2">{t.projects.featured}</p>
+            <h2 className="text-4xl font-bold">{t.projects.title}</h2>
+          </div>
+          <ProjectCard {...featuredProject} featured={true} />
+        </section>
+      )}
+
+      {/* Projects Grid */}
+      {otherProjects.length > 0 && (
+        <section id="projects" className="max-w-7xl mx-auto px-6 py-20 border-t border-border">
+          <h2 className="text-3xl font-bold mb-12">Other Notable Projects</h2>
+          <div className="space-y-8">
+            {otherProjects.map((project, idx) => (
+              <ProjectCard key={idx} {...project} />
+            ))}
+          </div>
+        </section>
+      )}
+
       {/* Experience Section */}
       <section id="experience" className="max-w-7xl mx-auto px-6 py-20 border-t border-border">
-        <h2 className="text-4xl font-bold mb-12 text-center">{t.experience.title}</h2>
-
-        <div className="space-y-12">
+        <h2 className="text-4xl font-bold mb-12">{t.experience.title}</h2>
+        <div className="space-y-8">
           {experiences.map((exp, idx) => (
-            <div key={idx} className="border-l-2 border-primary pl-8 py-2">
-              <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 mb-2">
-                <div>
-                  <h3 className="text-2xl font-semibold">{exp.title}</h3>
-                  <p className="text-primary">{exp.company}</p>
-                </div>
-                <span className="text-sm text-muted-foreground">{exp.period}</span>
-              </div>
-
+            <div key={idx} className="border-l-2 border-primary pl-8 pb-8">
+              <p className="text-sm text-primary font-semibold mb-1">{exp.period}</p>
+              <h3 className="text-2xl font-bold mb-1">{exp.title}</h3>
+              <p className="text-lg text-muted-foreground mb-4">{exp.company}</p>
               <p className="text-muted-foreground mb-4">{exp.description}</p>
-
               <ul className="space-y-2 mb-4">
                 {exp.highlights.map((highlight, i) => (
-                  <li key={i} className="text-muted-foreground flex items-start gap-2">
-                    <span className="text-primary mt-1">•</span>
+                  <li key={i} className="text-sm text-muted-foreground flex items-start gap-2">
+                    <span className="text-primary mt-1">▸</span>
                     <span>{highlight}</span>
                   </li>
                 ))}
               </ul>
-
               <div className="flex flex-wrap gap-2">
                 {exp.technologies.map((tech) => (
-                  <span key={tech} className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">
+                  <span key={tech} className="px-2 py-1 bg-primary/10 text-primary rounded text-xs font-medium">
                     {tech}
                   </span>
                 ))}
@@ -410,123 +478,118 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Projects Section */}
-      <section id="projects" className="max-w-7xl mx-auto px-6 py-20 border-t border-border">
-        <div className="mb-12">
-          <h2 className="text-5xl md:text-6xl font-bold mb-4 text-foreground">{t.projects.title}</h2>
-          <p className="text-lg text-muted-foreground max-w-3xl">Explore my featured projects showcasing full-stack development, real-time systems, and innovative solutions across various domains.</p>
+      {/* CV Download Section */}
+      <section className="max-w-7xl mx-auto px-6 py-20 border-t border-border">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl font-bold mb-4">{t.cv.title}</h2>
         </div>
-
-        <div className="space-y-8">
-          {projects.map((project, idx) => (
-            <ProjectCard key={idx} {...project} />
-          ))}
-        </div>
-      </section>
-
-      {/* Skills Section */}
-      <section id="skills" className="max-w-7xl mx-auto px-6 py-20 border-t border-border">
-        <h2 className="text-4xl font-bold mb-12 text-center">{t.skills.title}</h2>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {Object.entries(skills).map(([category, skillList]) => (
-            <div key={category} className="bg-card/50 border border-border rounded-lg p-6">
-              <h3 className="text-lg font-semibold text-primary mb-4 capitalize">
-                {t.skills[category as keyof typeof t.skills]}
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {skillList.map((skill) => (
-                  <span key={skill} className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm">
-                    {skill}
-                  </span>
-                ))}
-              </div>
+        <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+          <a
+            href="/cv/Jdey-Iheb-CV-English.pdf"
+            download
+            className="group px-8 py-6 bg-primary text-primary-foreground rounded-xl hover:shadow-lg transition-all duration-300 font-semibold flex items-center justify-center gap-3"
+          >
+            <Download size={24} className="group-hover:translate-y-1 transition-transform" />
+            <div className="text-left">
+              <div>{t.cv.english}</div>
+              <div className="text-sm text-primary-foreground/80">PDF</div>
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* CV Section */}
-      <section id="cv" className="max-w-7xl mx-auto px-6 py-20 border-t border-border">
-        <div className="text-center space-y-12">
-          <div className="space-y-4">
-            <h2 className="text-4xl md:text-5xl font-bold">{t.cv.title}</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{t.cv.subtitle}</p>
-          </div>
-
-          <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
-            <a
-              href="/cv/Jdey-Iheb-CV-English.pdf"
-              download
-              className="group px-8 py-6 bg-primary text-primary-foreground rounded-xl hover:shadow-lg transition-all duration-300 font-semibold flex items-center justify-center gap-3 text-lg"
-            >
-              <Download size={24} className="group-hover:translate-y-1 transition-transform" />
-              <div>
-                <div>{t.cv.english}</div>
-                <div className="text-sm text-primary-foreground/80">PDF Format</div>
-              </div>
-            </a>
-            <a
-              href="/cv/Jdey-Iheb-CV-French.pdf"
-              download
-              className="group px-8 py-6 border-2 border-primary text-primary rounded-xl hover:bg-primary/10 hover:shadow-lg transition-all duration-300 font-semibold flex items-center justify-center gap-3 text-lg"
-            >
-              <Download size={24} className="group-hover:translate-y-1 transition-transform" />
-              <div>
-                <div>{t.cv.french}</div>
-                <div className="text-sm text-primary/80">Format PDF</div>
-              </div>
-            </a>
-          </div>
+          </a>
+          <a
+            href="/cv/Jdey-Iheb-CV-French.pdf"
+            download
+            className="group px-8 py-6 border-2 border-primary text-primary rounded-xl hover:bg-primary/10 hover:shadow-lg transition-all duration-300 font-semibold flex items-center justify-center gap-3"
+          >
+            <Download size={24} className="group-hover:translate-y-1 transition-transform" />
+            <div className="text-left">
+              <div>{t.cv.french}</div>
+              <div className="text-sm text-primary/80">PDF</div>
+            </div>
+          </a>
         </div>
       </section>
 
       {/* Contact Section */}
       <section id="contact" className="max-w-7xl mx-auto px-6 py-20 border-t border-border">
-        <div className="text-center space-y-8">
-          <div className="space-y-4">
-            <h2 className="text-4xl font-bold">{t.contact.title}</h2>
-            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              {t.contact.description}
-            </p>
-          </div>
+        <div className="max-w-2xl mx-auto">
+          <h2 className="text-4xl font-bold mb-4 text-center">{t.contact.title}</h2>
+          <p className="text-lg text-muted-foreground text-center mb-12">{t.contact.subtitle}</p>
 
-          <div className="flex flex-col md:flex-row items-center justify-center gap-6">
-            <a
-              href="mailto:ihebjdey2@gmail.com"
-              className="px-8 py-4 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors text-lg font-medium flex items-center gap-2"
-            >
-              <Mail size={24} />
-              {t.contact.emailMe}
-            </a>
-            <a
-              href="https://linkedin.com/in/ihebjdey"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-8 py-4 border border-primary text-primary rounded-lg hover:bg-primary/10 transition-colors text-lg font-medium flex items-center gap-2"
-            >
-              <Linkedin size={24} />
-              {t.contact.linkedIn}
-            </a>
-            <a
-              href="https://github.com/ihebjdey"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-8 py-4 border border-primary text-primary rounded-lg hover:bg-primary/10 transition-colors text-lg font-medium flex items-center gap-2"
-            >
-              <Github size={24} />
-              {t.contact.github}
-            </a>
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Contact Form */}
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <input
+                  type="text"
+                  name="name"
+                  placeholder={t.contact.name}
+                  value={contactForm.name}
+                  onChange={handleContactChange}
+                  className="w-full px-4 py-3 bg-card border border-border rounded-lg focus:outline-none focus:border-primary transition-colors"
+                />
+              </div>
+              <div>
+                <input
+                  type="email"
+                  name="email"
+                  placeholder={t.contact.email}
+                  value={contactForm.email}
+                  onChange={handleContactChange}
+                  className="w-full px-4 py-3 bg-card border border-border rounded-lg focus:outline-none focus:border-primary transition-colors"
+                />
+              </div>
+              <div>
+                <textarea
+                  name="message"
+                  placeholder={t.contact.message}
+                  value={contactForm.message}
+                  onChange={handleContactChange}
+                  rows={4}
+                  className="w-full px-4 py-3 bg-card border border-border rounded-lg focus:outline-none focus:border-primary transition-colors resize-none"
+                ></textarea>
+              </div>
+              <button
+                type="submit"
+                className="w-full px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:opacity-90 transition-opacity"
+              >
+                {t.contact.send}
+              </button>
+            </form>
+
+            {/* Contact Info */}
+            <div className="space-y-8">
+              <div>
+                <p className="text-sm font-semibold text-primary mb-2">Email</p>
+                <a href="mailto:ihebjdey2@gmail.com" className="text-lg hover:text-primary transition-colors">
+                  ihebjdey2@gmail.com
+                </a>
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-primary mb-2">Location</p>
+                <p className="text-lg text-muted-foreground">{t.contact.location}</p>
+              </div>
+              <div>
+                <p className="text-sm font-semibold text-primary mb-4">Social</p>
+                <div className="flex gap-4">
+                  <a href="https://github.com/ihebjdey" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+                    <Github size={24} />
+                  </a>
+                  <a href="https://linkedin.com/in/ihebjdey" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
+                    <Linkedin size={24} />
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-border bg-card/50 py-8">
-        <div className="max-w-7xl mx-auto px-6 text-center text-muted-foreground">
-          <p>{t.footer.copyright}</p>
+      <footer className="border-t border-border py-8 px-6">
+        <div className="max-w-7xl mx-auto text-center text-muted-foreground text-sm">
+          {t.footer.copyright}
         </div>
       </footer>
-    </div>
+    </main>
   )
 }

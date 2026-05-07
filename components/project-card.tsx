@@ -16,6 +16,7 @@ interface ProjectCardProps {
   codeStructure: string
   impact: string
   futureImprovements: string
+  featured?: boolean
 }
 
 export function ProjectCard({
@@ -31,15 +32,20 @@ export function ProjectCard({
   codeStructure,
   impact,
   futureImprovements,
+  featured = false,
 }: ProjectCardProps) {
-  const [isExpanded, setIsExpanded] = useState(false)
+  const [isExpanded, setIsExpanded] = useState(featured)
 
   return (
     <div className="group">
       {/* Main Card */}
       <div
         onClick={() => setIsExpanded(!isExpanded)}
-        className="border border-border rounded-xl p-6 cursor-pointer transition-all duration-300 bg-card/50 hover:border-primary/50 hover:bg-card hover:shadow-lg"
+        className={`border rounded-xl p-6 md:p-8 cursor-pointer transition-all duration-300 ${
+          featured
+            ? 'border-primary/50 bg-gradient-to-br from-card to-card/50 shadow-lg hover:shadow-2xl'
+            : 'border-border bg-card/50 hover:border-primary/50 hover:bg-card hover:shadow-lg'
+        }`}
       >
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1">
