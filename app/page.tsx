@@ -5,6 +5,7 @@ import { useLanguage } from '@/lib/language-context'
 import { translations } from '@/lib/translations'
 import { Header } from '@/components/header'
 import { ProjectCard } from '@/components/project-card'
+import { TungoCaseStudy } from '@/components/tungo-case-study'
 import { useState } from 'react'
 
 const skillsData = {
@@ -425,16 +426,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Featured Project Section */}
-      {featuredProject && (
-        <section className="max-w-7xl mx-auto px-6 py-20 border-t border-border">
-          <div className="mb-8">
-            <p className="text-primary font-semibold text-sm uppercase tracking-wide mb-2">{t.projects.featured}</p>
-            <h2 className="text-4xl font-bold">{t.projects.title}</h2>
-          </div>
-          <ProjectCard {...featuredProject} featured={true} />
-        </section>
-      )}
+      {/* Featured Project Case Study - TUNGO */}
+      <TungoCaseStudy language={language} />
 
       {/* Projects Grid */}
       {otherProjects.length > 0 && (
