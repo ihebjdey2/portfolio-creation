@@ -302,57 +302,100 @@ export default function Home() {
       <Header />
 
       {/* Hero Section */}
-      <section className="min-h-[90vh] flex items-center justify-center py-20 px-6">
+      <section className="relative min-h-[95vh] flex items-center justify-center py-24 px-6 overflow-hidden">
+        {/* Animated Background Glow */}
+        <div className="absolute inset-0 -z-10">
+          <div className="absolute top-20 left-10 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-pulse delay-700"></div>
+          <div className="absolute top-1/2 left-1/3 w-80 h-80 bg-primary/10 rounded-full blur-2xl animate-pulse delay-1000"></div>
+        </div>
+
         <div className="max-w-7xl mx-auto w-full">
-          <div className="flex flex-col md:flex-row gap-12 items-center md:items-start">
-            {/* Profile Picture */}
-            <div className="relative w-40 md:w-56 flex-shrink-0">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/30 to-accent/30 rounded-3xl blur-3xl -z-10"></div>
-              <img
-                src="/profile.jpg"
-                alt="Jdey Iheb"
-                className="w-full rounded-3xl border-2 border-primary/30 object-cover shadow-2xl"
-              />
+          <div className="grid md:grid-cols-5 gap-12 items-center">
+            {/* Profile Picture - Premium */}
+            <div className="md:col-span-2 flex justify-center md:justify-start">
+              <div className="relative w-48 md:w-64 group">
+                {/* Premium Gradient Border */}
+                <div className="absolute inset-0 bg-gradient-to-br from-primary via-accent to-primary rounded-3xl blur-2xl opacity-60 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
+                {/* Inner glow effect */}
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/40 to-transparent rounded-3xl blur-xl -z-10"></div>
+                {/* Image Container */}
+                <img
+                  src="/profile.jpg"
+                  alt="Jdey Iheb - Full-Stack Engineer"
+                  className="w-full rounded-3xl border border-primary/50 object-cover shadow-2xl group-hover:shadow-2xl transition-all duration-500"
+                />
+              </div>
             </div>
 
-            {/* Hero Content */}
-            <div className="flex-1">
-              <p className="text-primary font-semibold text-lg mb-2">{t.hero.tagline}</p>
-              <h1 className="text-5xl md:text-6xl font-bold mb-4 text-balance">
-                {t.hero.title}
+            {/* Hero Content - Professional */}
+            <div className="md:col-span-3">
+              {/* Role Badge */}
+              <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/30 rounded-full mb-6">
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-primary animate-pulse"></span>
+                <span className="text-sm font-semibold text-primary">Full-Stack Software Engineer</span>
+              </div>
+
+              {/* Main Heading */}
+              <h1 className="text-6xl md:text-7xl font-bold mb-6 text-balance leading-tight">
+                <span className="block">Building</span>
+                <span className="block bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+                  Scalable Systems
+                </span>
               </h1>
-              <p className="text-2xl text-muted-foreground mb-6 text-balance">{t.hero.subtitle}</p>
-              <p className="text-lg text-muted-foreground mb-10 max-w-2xl leading-relaxed">
-                {t.hero.description}
+
+              {/* Subheading */}
+              <p className="text-xl md:text-2xl text-muted-foreground mb-8 max-w-2xl leading-relaxed font-light">
+                Crafting production-grade applications with modern technologies. Specialized in real-time systems, AI integration, and distributed architecture.
               </p>
 
+              {/* Technical Highlights */}
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-12 py-8 border-y border-primary/20">
+                <div className="group">
+                  <div className="text-primary font-semibold mb-1">Full-Stack</div>
+                  <p className="text-sm text-muted-foreground">Frontend to Infrastructure</p>
+                </div>
+                <div className="group">
+                  <div className="text-primary font-semibold mb-1">Real-Time</div>
+                  <p className="text-sm text-muted-foreground">WebSockets & Live Data</p>
+                </div>
+                <div className="group">
+                  <div className="text-primary font-semibold mb-1">AI-Powered</div>
+                  <p className="text-sm text-muted-foreground">RAG & ML Integration</p>
+                </div>
+              </div>
+
+              {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 mb-10">
                 <a
                   href="#projects"
-                  className="px-8 py-4 bg-primary text-primary-foreground rounded-xl font-semibold hover:opacity-90 transition-all duration-300 flex items-center justify-center gap-2 w-fit"
+                  className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:shadow-2xl hover:shadow-primary/50 transition-all duration-300 flex items-center justify-center gap-2 group"
                 >
-                  {t.hero.viewProjects}
-                  <ArrowRight size={20} />
+                  <span>Explore My Work</span>
+                  <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                 </a>
                 <a
                   href="#contact"
-                  className="px-8 py-4 border-2 border-primary text-primary rounded-xl font-semibold hover:bg-primary/10 transition-all duration-300 w-fit"
+                  className="px-8 py-4 border-2 border-primary/40 text-foreground rounded-lg font-semibold hover:border-primary hover:bg-primary/5 transition-all duration-300 backdrop-blur-sm"
                 >
-                  {t.hero.contactMe}
+                  Let&apos;s Collaborate
                 </a>
               </div>
 
-              {/* Social Links */}
-              <div className="flex gap-4 items-center">
-                <a href="https://github.com/ihebjdey" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
-                  <Github size={24} />
-                </a>
-                <a href="https://linkedin.com/in/ihebjdey" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary transition-colors">
-                  <Linkedin size={24} />
-                </a>
-                <a href="mailto:ihebjdey2@gmail.com" className="text-muted-foreground hover:text-primary transition-colors">
-                  <Mail size={24} />
-                </a>
+              {/* Social Links with divider */}
+              <div className="flex items-center gap-6 pt-6">
+                <span className="text-xs text-muted-foreground uppercase tracking-wider">Connect</span>
+                <div className="flex gap-4 items-center">
+                  <a href="https://github.com/ihebjdey" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg border border-primary/20 text-muted-foreground hover:text-primary hover:border-primary/50 hover:bg-primary/5 transition-all duration-300">
+                    <Github size={20} />
+                  </a>
+                  <a href="https://linkedin.com/in/ihebjdey" target="_blank" rel="noopener noreferrer" className="p-2 rounded-lg border border-primary/20 text-muted-foreground hover:text-primary hover:border-primary/50 hover:bg-primary/5 transition-all duration-300">
+                    <Linkedin size={20} />
+                  </a>
+                  <a href="mailto:ihebjdey2@gmail.com" className="p-2 rounded-lg border border-primary/20 text-muted-foreground hover:text-primary hover:border-primary/50 hover:bg-primary/5 transition-all duration-300">
+                    <Mail size={20} />
+                  </a>
+                </div>
               </div>
             </div>
           </div>
