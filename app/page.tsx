@@ -316,16 +316,16 @@ export default function Home() {
           <div className="grid md:grid-cols-5 gap-12 items-center">
             {/* Profile Picture - Premium */}
             <div className="md:col-span-2 flex justify-center md:justify-start">
-              <div className="relative w-48 md:w-64 group">
+              <div className="relative w-48 md:w-64 group animate-float">
                 {/* Premium Gradient Border */}
-                <div className="absolute inset-0 bg-gradient-to-br from-primary via-accent to-primary rounded-3xl blur-2xl opacity-60 group-hover:opacity-100 transition-opacity duration-500 -z-10"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-primary via-accent to-primary rounded-3xl blur-2xl opacity-60 group-hover:opacity-100 transition-opacity duration-500 -z-10 animate-gradient-shift"></div>
                 {/* Inner glow effect */}
                 <div className="absolute inset-0 bg-gradient-to-br from-primary/40 to-transparent rounded-3xl blur-xl -z-10"></div>
                 {/* Image Container */}
                 <img
                   src="/profile.jpg"
                   alt="Jdey Iheb - Full-Stack Engineer"
-                  className="w-full rounded-3xl border border-primary/50 object-cover shadow-2xl group-hover:shadow-2xl transition-all duration-500"
+                  className="w-full rounded-3xl border border-primary/50 object-cover shadow-2xl group-hover:shadow-2xl transition-smooth"
                 />
               </div>
             </div>
@@ -371,14 +371,14 @@ export default function Home() {
               <div className="flex flex-col sm:flex-row gap-4 mb-10">
                 <a
                   href="#projects"
-                  className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:shadow-2xl hover:shadow-primary/50 transition-all duration-300 flex items-center justify-center gap-2 group"
+                  className="px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:shadow-2xl hover:shadow-primary/50 transition-smooth hover-lift flex items-center justify-center gap-2 group"
                 >
                   <span>Explore My Work</span>
-                  <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform duration-300" />
                 </a>
                 <a
                   href="#contact"
-                  className="px-8 py-4 border-2 border-primary/40 text-foreground rounded-lg font-semibold hover:border-primary hover:bg-primary/5 transition-all duration-300 backdrop-blur-sm"
+                  className="px-8 py-4 border-2 border-primary/40 text-foreground rounded-lg font-semibold hover:border-primary hover:bg-primary/5 transition-smooth hover-lift backdrop-blur-sm"
                 >
                   Let&apos;s Collaborate
                 </a>
@@ -405,8 +405,8 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section className="max-w-7xl mx-auto px-6 py-20 border-t border-border">
-        <div className="grid md:grid-cols-3 gap-12">
+      <section className="max-w-7xl mx-auto px-6 py-20 border-t border-border animate-slide-up">
+        <div className="grid md:grid-cols-3 gap-12 stagger-1">
           <div className="md:col-span-1">
             <h2 className="text-4xl font-bold">{t.about.title}</h2>
           </div>
@@ -425,14 +425,14 @@ export default function Home() {
       </section>
 
       {/* Skills Section */}
-      <section className="max-w-7xl mx-auto px-6 py-20 border-t border-border">
+      <section className="max-w-7xl mx-auto px-6 py-20 border-t border-border animate-slide-up">
         <h2 className="text-4xl font-bold mb-12">{t.skills.title}</h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 stagger-1">
           <div>
             <h3 className="text-lg font-semibold mb-4 text-primary">{t.skills.frontend}</h3>
             <div className="space-y-2">
               {skillsData.frontend.map((skill) => (
-                <div key={skill} className="px-3 py-2 bg-card border border-border rounded-lg text-sm">
+                <div key={skill} className="px-3 py-2 bg-card border border-border rounded-lg text-sm hover-lift hover:border-primary/40 hover:bg-primary/5 transition-smooth">
                   {skill}
                 </div>
               ))}
@@ -442,7 +442,7 @@ export default function Home() {
             <h3 className="text-lg font-semibold mb-4 text-primary">{t.skills.backend}</h3>
             <div className="space-y-2">
               {skillsData.backend.map((skill) => (
-                <div key={skill} className="px-3 py-2 bg-card border border-border rounded-lg text-sm">
+                <div key={skill} className="px-3 py-2 bg-card border border-border rounded-lg text-sm hover-lift hover:border-primary/40 hover:bg-primary/5 transition-smooth">
                   {skill}
                 </div>
               ))}
@@ -452,7 +452,7 @@ export default function Home() {
             <h3 className="text-lg font-semibold mb-4 text-primary">{t.skills.database}</h3>
             <div className="space-y-2">
               {skillsData.database.map((skill) => (
-                <div key={skill} className="px-3 py-2 bg-card border border-border rounded-lg text-sm">
+                <div key={skill} className="px-3 py-2 bg-card border border-border rounded-lg text-sm hover-lift hover:border-primary/40 hover:bg-primary/5 transition-smooth">
                   {skill}
                 </div>
               ))}
@@ -462,7 +462,7 @@ export default function Home() {
             <h3 className="text-lg font-semibold mb-4 text-primary">{t.skills.tools}</h3>
             <div className="space-y-2">
               {skillsData.tools.map((skill) => (
-                <div key={skill} className="px-3 py-2 bg-card border border-border rounded-lg text-sm">
+                <div key={skill} className="px-3 py-2 bg-card border border-border rounded-lg text-sm hover-lift hover:border-primary/40 hover:bg-primary/5 transition-smooth">
                   {skill}
                 </div>
               ))}
@@ -523,11 +523,11 @@ export default function Home() {
       </section>
 
       {/* CV Download Section */}
-      <section className="max-w-7xl mx-auto px-6 py-20 border-t border-border">
-        <div className="text-center mb-12">
+      <section className="max-w-7xl mx-auto px-6 py-20 border-t border-border animate-slide-up">
+        <div className="text-center mb-12 animate-fade-in">
           <h2 className="text-4xl font-bold mb-4">{t.cv.title}</h2>
         </div>
-        <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto stagger-1">
           <a
             href="/cv/Jdey-Iheb-CV-English.pdf"
             download
