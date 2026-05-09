@@ -6,6 +6,7 @@ import { translations } from '@/lib/translations'
 import { Header } from '@/components/header'
 import { ProjectCard } from '@/components/project-card'
 import { TungoCaseStudy } from '@/components/tungo-case-study'
+import { ArchitectureSection } from '@/components/architecture-section'
 import { useState } from 'react'
 
 const skillsData = {
@@ -468,6 +469,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Architecture Section */}
+      <ArchitectureSection language={language} />
 
       {/* Featured Project Case Study - TUNGO */}
       <TungoCaseStudy language={language} />
