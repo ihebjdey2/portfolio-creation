@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Database, Zap, Brain, Code2, Activity, ChevronRight } from 'lucide-react'
+import { Database, Zap, Brain, Code2, Activity, ChevronRight, Server } from 'lucide-react'
 
 interface ArchitectureCardProps {
   icon: React.ReactNode
