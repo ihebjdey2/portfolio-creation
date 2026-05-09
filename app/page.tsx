@@ -7,6 +7,7 @@ import { Header } from '@/components/header'
 import { ProjectCard } from '@/components/project-card'
 import { TungoCaseStudy } from '@/components/tungo-case-study'
 import { ArchitectureSection } from '@/components/architecture-section'
+import { MetricsSection } from '@/components/metrics-section'
 import { useState } from 'react'
 
 const skillsData = {
@@ -469,6 +470,9 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* Metrics Section */}
+      <MetricsSection language={language} />
 
       {/* Architecture Section */}
       <ArchitectureSection language={language} />
