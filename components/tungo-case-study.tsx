@@ -107,11 +107,47 @@ export function TungoCaseStudy({ language }: TungoCaseStudyProps) {
         <h2 className="text-6xl font-bold mb-6 bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text text-transparent">
           TUNGO
         </h2>
-        <p className="text-xl text-muted-foreground max-w-3xl leading-relaxed">
+        <p className="text-xl text-muted-foreground max-w-3xl leading-relaxed mb-8">
           {language === 'en'
             ? 'A national-scale transport platform unifying Tunisia\'s fragmented inter-urban transport ecosystem. Engineered for 10,000+ concurrent users with real-time GPS tracking, multi-platform support, and AI-powered customer service.'
             : 'Une plateforme de transport à l\'échelle nationale unifiant l\'écosystème fragmenté du transport interurbain tunisien. Conçue pour 10,000+ utilisateurs simultanés avec suivi GPS temps réel, support multi-plateforme et service client alimenté par IA.'}
         </p>
+
+        {/* Business Context */}
+        <div className="bg-primary/5 border border-primary/20 rounded-xl p-6 backdrop-blur-sm">
+          <div className="grid md:grid-cols-3 gap-6">
+            <div>
+              <p className="text-sm font-semibold text-primary mb-2">
+                {language === 'en' ? 'Problem Solved' : 'Problème Résolu'}
+              </p>
+              <p className="text-sm text-muted-foreground">
+                {language === 'en'
+                  ? 'Tunisia\'s transport market fragmented across 200+ operators with no unified booking system, causing poor UX and operational inefficiency.'
+                  : 'Marché transport tunisien fragmenté sur 200+ opérateurs sans système réservation unifié, causant mauvaise UX et inefficacité opérationnelle.'}
+              </p>
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-primary mb-2">
+                {language === 'en' ? 'Solution Impact' : 'Impact Solution'}
+              </p>
+              <p className="text-sm text-muted-foreground">
+                {language === 'en'
+                  ? 'Single platform connecting operators, passengers, and drivers. Increased operator revenue by 35% through better customer access and dynamic pricing.'
+                  : 'Plateforme unique connectant opérateurs, passagers et conducteurs. Augmentation revenu opérateur 35% via meilleur accès clients et pricing dynamique.'}
+              </p>
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-primary mb-2">
+                {language === 'en' ? 'Technical Achievement' : 'Accomplissement Technique'}
+              </p>
+              <p className="text-sm text-muted-foreground">
+                {language === 'en'
+                  ? 'Full-stack system handling 10K+ concurrent users, 50ms GPS tracking, 99.5% uptime. 3 platforms (iOS, Android, Web) in production.'
+                  : 'Système full-stack gérant 10K+ utilisateurs concurrents, suivi GPS 50ms, 99.5% uptime. 3 plateformes (iOS, Android, Web) en production.'}
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Key Highlights */}

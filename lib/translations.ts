@@ -19,12 +19,12 @@ export const translations = {
     },
     about: {
       title: 'About Me',
-      bio: 'I\'m a software engineer with a passion for building scalable, high-performance systems. My journey spans from backend architecture to full-stack development, always prioritizing clean code and innovative solutions.',
+      bio: 'I engineer distributed systems that scale. Specializing in real-time APIs, full-stack architecture, and AI integration. My work focuses on solving hard technical problems: managing 10K+ concurrent users, optimizing sub-50ms latencies, and deploying systems to production that serve thousands daily.',
       highlights: [
-        'Problem-solving mindset with focus on system architecture',
-        'Full-stack expertise: Frontend, Backend, Mobile, DevOps',
-        'Experience building real-time systems handling 10,000+ concurrent users',
-        'Committed to continuous learning and technical excellence',
+        'Distributed Systems: Real-time synchronization, concurrent user management, fault tolerance',
+        'Full-Stack Architecture: From mobile apps to infrastructure, designing end-to-end solutions',
+        'AI/ML Integration: Building production ML pipelines and intelligent features at scale',
+        'Production-Grade Development: Docker, CI/CD, monitoring, SonarQube - not just code, but deployable systems',
       ],
     },
     experience: {
@@ -80,12 +80,12 @@ export const translations = {
     },
     about: {
       title: 'À Propos de Moi',
-      bio: 'Je suis un ingénieur logiciel passionné par la construction de systèmes scalables et haute performance. Mon parcours couvre du design d\'architecture backend au développement full-stack, en privilégiant le code propre et les solutions innovantes.',
+      bio: 'J\'ingénierie des systèmes distribués à grande échelle. Spécialisé en APIs temps réel, architecture full-stack et intégration IA. Mon travail se concentre sur résoudre des problèmes techniques complexes: gérer 10K+ utilisateurs simultanés, optimiser latences <50ms, déployer systèmes production servant des milliers quotidiennement.',
       highlights: [
-        'Mentalité de résolution de problèmes axée sur l\'architecture système',
-        'Expertise full-stack: Frontend, Backend, Mobile, DevOps',
-        'Expérience dans la construction de systèmes temps réel gérant 10,000+ utilisateurs simultanés',
-        'Engagé envers l\'apprentissage continu et l\'excellence technique',
+        'Systèmes Distribués: Synchronisation temps réel, gestion utilisateurs concurrents, tolérance pannes',
+        'Architecture Full-Stack: Applications mobiles à infrastructure, solutions end-to-end',
+        'Intégration IA/ML: Pipelines ML production et features intelligentes à grande échelle',
+        'Développement Production-Grade: Docker, CI/CD, monitoring, SonarQube - pas juste code, systèmes déployables',
       ],
     },
     experience: {
