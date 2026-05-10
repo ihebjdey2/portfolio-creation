@@ -118,13 +118,6 @@ const experiencesData = {
         'Tableau de bord analytics admin suivi performance contenu et métriques engagement utilisateur',
       ],
     },
-      technologies: ['Python', 'PyTorch', 'OpenCV'],
-      highlights: [
-        'Prétraitement des données et extraction de caractéristiques avec OpenCV',
-        'Modèles prédictifs construits avec PyTorch',
-        'Analyse des commentaires clients et recommandations produits',
-      ],
-    },
     {
       title: 'Stagiaire',
       company: 'Tunisie Telecom',
