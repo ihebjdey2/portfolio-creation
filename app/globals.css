@@ -328,4 +328,78 @@
       opacity: 0.9;
     }
   }
+
+  /* Parallax effect utilities */
+  .parallax-slow {
+    transform: translateY(0px);
+  }
+
+  .parallax-medium {
+    transform: translateY(0px);
+  }
+
+  .parallax-fast {
+    transform: translateY(0px);
+  }
+
+  /* Scroll reveal animations */
+  @keyframes scroll-in-left {
+    from {
+      opacity: 0;
+      transform: translateX(-40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes scroll-in-right {
+    from {
+      opacity: 0;
+      transform: translateX(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes scroll-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scroll-in-down {
+    from {
+      opacity: 0;
+      transform: translateY(-40px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .scroll-in-left {
+    animation: scroll-in-left 0.8s ease-out forwards;
+  }
+
+  .scroll-in-right {
+    animation: scroll-in-right 0.8s ease-out forwards;
+  }
+
+  .scroll-in-up {
+    animation: scroll-in-up 0.8s ease-out forwards;
+  }
+
+  .scroll-in-down {
+    animation: scroll-in-down 0.8s ease-out forwards;
+  }
 }
