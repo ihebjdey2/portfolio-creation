@@ -29,7 +29,7 @@ export function RecruiterSnapshot({ language }: RecruiterSnapshotProps) {
         { icon: Brain, label: 'Intégration IA/ML', desc: 'Pipelines production' },
       ],
       highlight: 'Actuellement TUNGO: 10 000+ utilisateurs quotidiens sur 3 modes transports',
-      contact: 'Ouvert à: Postes Junior • Rôles architecte • Leadership technique',
+      contact: 'Ouvert à: Postes seniors • Rôles architecte • Leadership technique',
       cta: 'Parlons',
     },
   }

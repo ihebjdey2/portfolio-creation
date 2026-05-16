@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from '@/lib/theme-context'
 import { LanguageProvider } from '@/lib/language-context'
-import { ScrollProgress } from '@/components/scroll-progress'
 import './globals.css'
 
 const _geist = Geist({ subsets: ["latin"] });
@@ -42,7 +41,6 @@ export default function RootLayout({
       <body className="font-sans antialiased">
         <ThemeProvider>
           <LanguageProvider>
-            <ScrollProgress />
             {children}
             {process.env.NODE_ENV === 'production' && <Analytics />}
           </LanguageProvider>
