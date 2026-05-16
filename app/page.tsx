@@ -11,7 +11,6 @@ import { MetricsSection } from '@/components/metrics-section'
 import { RecruiterSnapshot } from '@/components/recruiter-snapshot'
 import { ParallaxSection } from '@/components/parallax-section'
 import { ScrollReveal } from '@/components/scroll-reveal'
-import { ResumeViewer } from '@/components/resume-viewer'
 import { useState } from 'react'
 
 const skillsData = {
@@ -564,11 +563,35 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CV/Resume Section */}
+      {/* CV Download Section */}
       <section id="cv" className="max-w-7xl mx-auto px-6 py-20 border-t border-border animate-slide-up">
-        <ScrollReveal direction="up">
-          <ResumeViewer language={language} />
-        </ScrollReveal>
+        <div className="text-center mb-12 animate-fade-in">
+          <h2 className="text-4xl font-bold mb-4">{t.cv.title}</h2>
+        </div>
+        <div className="grid md:grid-cols-2 gap-6 max-w-2xl mx-auto stagger-1">
+          <a
+            href="/cv/Jdey-Iheb-CV-English.pdf"
+            download
+            className="group px-8 py-6 bg-primary text-primary-foreground rounded-xl hover:shadow-lg transition-all duration-300 font-semibold flex items-center justify-center gap-3"
+          >
+            <Download size={24} className="group-hover:translate-y-1 transition-transform" />
+            <div className="text-left">
+              <div>{t.cv.english}</div>
+              <div className="text-sm text-primary-foreground/80">PDF</div>
+            </div>
+          </a>
+          <a
+            href="/cv/Jdey-Iheb-CV-French.pdf"
+            download
+            className="group px-8 py-6 border-2 border-primary text-primary rounded-xl hover:bg-primary/10 hover:shadow-lg transition-all duration-300 font-semibold flex items-center justify-center gap-3"
+          >
+            <Download size={24} className="group-hover:translate-y-1 transition-transform" />
+            <div className="text-left">
+              <div>{t.cv.french}</div>
+              <div className="text-sm text-primary/80">PDF</div>
+            </div>
+          </a>
+        </div>
       </section>
 
       {/* Contact Section */}
