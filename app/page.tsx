@@ -9,6 +9,8 @@ import { TungoCaseStudy } from '@/components/tungo-case-study'
 import { ArchitectureSection } from '@/components/architecture-section'
 import { MetricsSection } from '@/components/metrics-section'
 import { RecruiterSnapshot } from '@/components/recruiter-snapshot'
+import { ParallaxSection } from '@/components/parallax-section'
+import { ScrollReveal } from '@/components/scroll-reveal'
 import { useState } from 'react'
 
 const skillsData = {
@@ -318,11 +320,17 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="relative min-h-[95vh] flex items-center justify-center py-24 px-6 overflow-hidden">
-        {/* Animated Background Glow */}
-        <div className="absolute inset-0 -z-10">
-          <div className="absolute top-20 left-10 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-pulse delay-700"></div>
-          <div className="absolute top-1/2 left-1/3 w-80 h-80 bg-primary/10 rounded-full blur-2xl animate-pulse delay-1000"></div>
+        {/* Animated Background Glow with Parallax */}
+        <div className="absolute inset-0 -z-10 overflow-hidden">
+          <ParallaxSection offset={30} direction="up">
+            <div className="absolute top-20 left-10 w-96 h-96 bg-primary/20 rounded-full blur-3xl animate-pulse"></div>
+          </ParallaxSection>
+          <ParallaxSection offset={40} direction="down">
+            <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-pulse delay-700"></div>
+          </ParallaxSection>
+          <ParallaxSection offset={25} direction="up">
+            <div className="absolute top-1/2 left-1/3 w-80 h-80 bg-primary/10 rounded-full blur-2xl animate-pulse delay-1000"></div>
+          </ParallaxSection>
         </div>
 
         <div className="max-w-7xl mx-auto w-full">
@@ -433,17 +441,16 @@ export default function Home() {
           <div className="md:col-span-3">
             <div className="grid gap-4">
               {t.about.highlights.map((highlight, idx) => (
-                <div
-                  key={idx}
-                  className="group p-5 bg-gradient-to-br from-card/50 to-card/30 border border-primary/15 rounded-xl hover:border-primary/40 hover:bg-primary/5 transition-smooth"
-                >
-                  <div className="flex items-start gap-4">
-                    <div className="p-2 bg-primary/10 rounded-lg flex-shrink-0 group-hover:bg-primary/20 transition-colors">
-                      <Code className="text-primary" size={20} />
+                <ScrollReveal key={idx} direction="right" delay={idx * 100}>
+                  <div className="group p-5 bg-gradient-to-br from-card/50 to-card/30 border border-primary/15 rounded-xl hover:border-primary/40 hover:bg-primary/5 transition-smooth">
+                    <div className="flex items-start gap-4">
+                      <div className="p-2 bg-primary/10 rounded-lg flex-shrink-0 group-hover:bg-primary/20 transition-colors">
+                        <Code className="text-primary" size={20} />
+                      </div>
+                      <p className="text-muted-foreground leading-relaxed">{highlight}</p>
                     </div>
-                    <p className="text-muted-foreground leading-relaxed">{highlight}</p>
                   </div>
-                </div>
+                </ScrollReveal>
               ))}
             </div>
           </div>
@@ -453,47 +460,55 @@ export default function Home() {
       {/* Skills Section */}
       <section id="skills" className="max-w-7xl mx-auto px-6 py-20 border-t border-border animate-slide-up">
         <h2 className="text-4xl font-bold mb-12">{t.skills.title}</h2>
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 stagger-1">
-          <div>
-            <h3 className="text-lg font-semibold mb-4 text-primary">{t.skills.frontend}</h3>
-            <div className="space-y-2">
-              {skillsData.frontend.map((skill) => (
-                <div key={skill} className="px-3 py-2 bg-card border border-border rounded-lg text-sm hover-lift hover:border-primary/40 hover:bg-primary/5 transition-smooth">
-                  {skill}
-                </div>
-              ))}
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <ScrollReveal direction="up" delay={0}>
+            <div>
+              <h3 className="text-lg font-semibold mb-4 text-primary">{t.skills.frontend}</h3>
+              <div className="space-y-2">
+                {skillsData.frontend.map((skill) => (
+                  <div key={skill} className="px-3 py-2 bg-card border border-border rounded-lg text-sm hover-lift hover:border-primary/40 hover:bg-primary/5 transition-smooth">
+                    {skill}
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-          <div>
-            <h3 className="text-lg font-semibold mb-4 text-primary">{t.skills.backend}</h3>
-            <div className="space-y-2">
-              {skillsData.backend.map((skill) => (
-                <div key={skill} className="px-3 py-2 bg-card border border-border rounded-lg text-sm hover-lift hover:border-primary/40 hover:bg-primary/5 transition-smooth">
-                  {skill}
-                </div>
-              ))}
+          </ScrollReveal>
+          <ScrollReveal direction="up" delay={100}>
+            <div>
+              <h3 className="text-lg font-semibold mb-4 text-primary">{t.skills.backend}</h3>
+              <div className="space-y-2">
+                {skillsData.backend.map((skill) => (
+                  <div key={skill} className="px-3 py-2 bg-card border border-border rounded-lg text-sm hover-lift hover:border-primary/40 hover:bg-primary/5 transition-smooth">
+                    {skill}
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-          <div>
-            <h3 className="text-lg font-semibold mb-4 text-primary">{t.skills.database}</h3>
-            <div className="space-y-2">
-              {skillsData.database.map((skill) => (
-                <div key={skill} className="px-3 py-2 bg-card border border-border rounded-lg text-sm hover-lift hover:border-primary/40 hover:bg-primary/5 transition-smooth">
-                  {skill}
-                </div>
-              ))}
+          </ScrollReveal>
+          <ScrollReveal direction="up" delay={200}>
+            <div>
+              <h3 className="text-lg font-semibold mb-4 text-primary">{t.skills.database}</h3>
+              <div className="space-y-2">
+                {skillsData.database.map((skill) => (
+                  <div key={skill} className="px-3 py-2 bg-card border border-border rounded-lg text-sm hover-lift hover:border-primary/40 hover:bg-primary/5 transition-smooth">
+                    {skill}
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-          <div>
-            <h3 className="text-lg font-semibold mb-4 text-primary">{t.skills.tools}</h3>
-            <div className="space-y-2">
-              {skillsData.tools.map((skill) => (
-                <div key={skill} className="px-3 py-2 bg-card border border-border rounded-lg text-sm hover-lift hover:border-primary/40 hover:bg-primary/5 transition-smooth">
-                  {skill}
-                </div>
-              ))}
+          </ScrollReveal>
+          <ScrollReveal direction="up" delay={300}>
+            <div>
+              <h3 className="text-lg font-semibold mb-4 text-primary">{t.skills.tools}</h3>
+              <div className="space-y-2">
+                {skillsData.tools.map((skill) => (
+                  <div key={skill} className="px-3 py-2 bg-card border border-border rounded-lg text-sm hover-lift hover:border-primary/40 hover:bg-primary/5 transition-smooth">
+                    {skill}
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
+          </ScrollReveal>
         </div>
       </section>
 
