@@ -12,6 +12,7 @@ import { RecruiterSnapshot } from '@/components/recruiter-snapshot'
 import { ParallaxSection } from '@/components/parallax-section'
 import { ScrollReveal } from '@/components/scroll-reveal'
 import { useState } from 'react'
+import { useToast } from '@/hooks/use-toast'
 
 const skillsData = {
   frontend: ['React', 'Next.js', 'Flutter', 'Tailwind CSS', 'TypeScript'],
@@ -296,7 +297,9 @@ const projectsData = {
 
 export default function Home() {
   const { language } = useLanguage()
+  const { toast } = useToast()
   const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' })
+  const [isSubmitting, setIsSubmitting] = useState(false)
   
   const t = translations[language]
   const experiences = experiencesData[language]
@@ -308,10 +311,42 @@ export default function Home() {
     setContactForm({ ...contactForm, [e.target.name]: e.target.value })
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log('Form submitted:', contactForm)
-    // Handle form submission
+    setIsSubmitting(true)
+
+    try {
+      const response = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(contactForm),
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        toast({
+          title: 'Success!',
+          description: 'Your message has been sent. I\'ll get back to you soon!',
+        })
+        setContactForm({ name: '', email: '', message: '' })
+      } else {
+        toast({
+          title: 'Error',
+          description: data.error || 'Failed to send message. Please try again.',
+          variant: 'destructive',
+        })
+      }
+    } catch (error) {
+      console.error('Error sending email:', error)
+      toast({
+        title: 'Error',
+        description: 'Failed to send message. Please try again.',
+        variant: 'destructive',
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -635,9 +670,10 @@ export default function Home() {
               </div>
               <button
                 type="submit"
-                className="w-full px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:opacity-90 transition-opacity"
+                disabled={isSubmitting}
+                className="w-full px-6 py-3 bg-primary text-primary-foreground rounded-lg font-semibold hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                {t.contact.send}
+                {isSubmitting ? 'Sending...' : t.contact.send}
               </button>
             </form>
 

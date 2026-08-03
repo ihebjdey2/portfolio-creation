@@ -4,6 +4,7 @@ import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from '@/lib/theme-context'
 import { LanguageProvider } from '@/lib/language-context'
 import { ScrollProgress } from '@/components/scroll-progress'
+import { Toaster } from '@/components/ui/toaster'
 import './globals.css'
 
 const _geist = Geist({ subsets: ["latin"] });
@@ -44,6 +45,7 @@ export default function RootLayout({
           <LanguageProvider>
             <ScrollProgress />
             {children}
+            <Toaster />
             {process.env.NODE_ENV === 'production' && <Analytics />}
           </LanguageProvider>
         </ThemeProvider>
