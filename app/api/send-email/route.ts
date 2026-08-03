@@ -1,9 +1,44 @@
 import { Resend } from 'resend'
 import { NextRequest, NextResponse } from 'next/server'
+import { readFileSync } from 'fs'
+import { resolve } from 'path'
+
+function getApiKey(): string | undefined {
+  // Try to get from process.env first
+  if (process.env.RESEND_API_KEY) {
+    return process.env.RESEND_API_KEY
+  }
+
+  // Try to read from .env.development.local
+  try {
+    const envPath = resolve(process.cwd(), '.env.development.local')
+    const envContent = readFileSync(envPath, 'utf-8')
+    const match = envContent.match(/RESEND_API_KEY=(['\"]?)(.+?)\1/)
+    if (match && match[2]) {
+      return match[2].trim()
+    }
+  } catch (err) {
+    // File not found or other error, continue
+  }
+
+  // Try to read from /vercel/share/.env.project (Vercel project env)
+  try {
+    const projectEnvPath = '/vercel/share/.env.project'
+    const envContent = readFileSync(projectEnvPath, 'utf-8')
+    const match = envContent.match(/RESEND_API_KEY=(['\"]?)(.+?)\1/)
+    if (match && match[2]) {
+      return match[2].trim()
+    }
+  } catch (err) {
+    // File not found or other error
+  }
+
+  return undefined
+}
 
 export async function POST(request: NextRequest) {
   try {
-    const apiKey = process.env.RESEND_API_KEY
+    const apiKey = getApiKey()
     if (!apiKey) {
       console.error('RESEND_API_KEY is not set')
       return NextResponse.json(
