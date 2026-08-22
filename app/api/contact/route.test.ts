@@ -34,7 +34,7 @@ function formRequest(body: Record<string, string>) {
       Origin: 'http://localhost:3000',
       'Content-Type': 'application/x-www-form-urlencoded',
     },
-    body: new URLSearchParams(body),
+    body: new URLSearchParams(body).toString(),
   })
 }
 
