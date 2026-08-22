@@ -1,11 +1,21 @@
 import { Resend } from 'resend'
 
-export function getResendClient() {
-  const apiKey = process.env.RESEND_API_KEY
+type ContactEmailConfiguration = {
+  client: Resend
+  from: string
+  to: string
+}
 
-  if (!apiKey) {
-    throw new Error('RESEND_API_KEY is not configured')
+export function getContactEmailConfiguration(): ContactEmailConfiguration | null {
+  const apiKey = process.env.RESEND_API_KEY?.trim()
+  const from = process.env.CONTACT_FROM_EMAIL?.trim()
+  const to = process.env.CONTACT_TO_EMAIL?.trim()
+
+  if (!apiKey || !from || !to) return null
+
+  return {
+    client: new Resend(apiKey),
+    from,
+    to,
   }
-
-  return new Resend(apiKey)
 }

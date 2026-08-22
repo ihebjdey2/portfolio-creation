@@ -1,6 +1,6 @@
 'use client'
 
-import { createContext, useContext, useEffect, useState } from 'react'
+import { createContext, useContext, useEffect, useSyncExternalStore } from 'react'
 
 export type Language = 'en' | 'fr'
 
@@ -9,24 +9,45 @@ interface LanguageContextType {
   setLanguage: (lang: Language) => void
 }
 
+const LANGUAGE_STORAGE_KEY = 'language'
+const LANGUAGE_CHANGE_EVENT = 'portfolio-language-change'
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
 
+function getLanguageSnapshot(): Language {
+  return localStorage.getItem(LANGUAGE_STORAGE_KEY) === 'fr' ? 'fr' : 'en'
+}
+
+function getServerLanguageSnapshot(): Language {
+  return 'en'
+}
+
+function subscribeToLanguage(onStoreChange: () => void) {
+  const handleStorage = (event: StorageEvent) => {
+    if (!event.key || event.key === LANGUAGE_STORAGE_KEY) onStoreChange()
+  }
+
+  window.addEventListener('storage', handleStorage)
+  window.addEventListener(LANGUAGE_CHANGE_EVENT, onStoreChange)
+  return () => {
+    window.removeEventListener('storage', handleStorage)
+    window.removeEventListener(LANGUAGE_CHANGE_EVENT, onStoreChange)
+  }
+}
+
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguageState] = useState<Language>('en')
-  const [isClient, setIsClient] = useState(false)
+  const language = useSyncExternalStore(
+    subscribeToLanguage,
+    getLanguageSnapshot,
+    getServerLanguageSnapshot,
+  )
 
   useEffect(() => {
-    setIsClient(true)
-    const savedLanguage = localStorage.getItem('language') as Language | null
-    const initialLanguage = savedLanguage || 'en'
-    setLanguageState(initialLanguage)
-  }, [])
+    document.documentElement.lang = language
+  }, [language])
 
   const setLanguage = (lang: Language) => {
-    setLanguageState(lang)
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('language', lang)
-    }
+    localStorage.setItem(LANGUAGE_STORAGE_KEY, lang)
+    window.dispatchEvent(new Event(LANGUAGE_CHANGE_EVENT))
   }
 
   return (

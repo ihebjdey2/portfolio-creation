@@ -18,16 +18,10 @@ export function ScrollProgress() {
   }, [])
 
   return (
-    <div className="fixed top-0 left-0 h-1 bg-background z-[100]">
-      {/* Gradient progress bar */}
+    <div className="pointer-events-none fixed inset-x-0 top-0 z-[100] h-0.5" aria-hidden="true">
       <div
-        className="h-full bg-gradient-to-r from-primary via-accent to-primary transition-all duration-300"
+        className="h-full bg-primary transition-[width] duration-150 ease-out motion-reduce:transition-none"
         style={{ width: `${scrollProgress}%` }}
-      />
-      {/* Glow effect */}
-      <div
-        className="absolute top-0 h-full w-1 bg-primary blur-md opacity-50"
-        style={{ left: `${scrollProgress}%`, transform: 'translateX(-50%)' }}
       />
     </div>
   )
