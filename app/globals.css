@@ -89,12 +89,13 @@
 }
 
 @layer components {
-  .section-shell { @apply mx-auto w-full max-w-[90rem] px-5 sm:px-8 lg:px-12; }
+  .section-shell { @apply mx-auto w-full max-w-[74rem] px-5 sm:px-8 lg:px-8; }
   .section-pad { @apply py-20 sm:py-24 lg:py-32; }
   .section-rule { @apply border-t border-border/80; }
   .section-kicker { @apply mb-4 font-mono text-[0.68rem] font-medium uppercase tracking-[0.18em] text-muted-foreground; }
-  .section-title { @apply font-display text-4xl font-medium leading-[0.96] tracking-[-0.06em] sm:text-5xl lg:text-6xl; }
+  .section-title { @apply font-display text-4xl font-medium leading-[0.96] tracking-[-0.055em] sm:text-5xl lg:text-6xl; }
   .section-intro { @apply mt-5 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg; }
+  .editorial-grid { @apply grid gap-8 lg:grid-cols-[minmax(200px,0.72fr)_minmax(0,1.65fr)] lg:gap-16; }
   .tech-tag { @apply rounded-sm border border-border/80 bg-surface-muted/60 px-2.5 py-1 font-mono text-[0.66rem] text-muted-foreground; }
   .text-link { @apply inline-flex items-center gap-1.5 rounded-sm font-medium text-foreground hover:text-primary; }
   .text-link svg { transition: transform 180ms ease-out; }
@@ -136,7 +137,8 @@
   position: relative;
   isolation: isolate;
   display: grid;
-  min-height: 35rem;
+  min-height: 34rem;
+  overflow-x: clip;
   place-items: center;
   perspective: 1500px;
   touch-action: pan-y;
@@ -144,8 +146,8 @@
 }
 .project-carousel-slide {
   grid-area: 1 / 1;
-  width: min(100%, 48rem);
-  transform: translateX(calc(var(--carousel-offset, 0) * 28%)) translateZ(calc(var(--carousel-offset, 0) * -180px)) rotateY(calc(var(--carousel-offset, 0) * -10deg)) scale(calc(1 - min(abs(var(--carousel-offset, 0)), 2) * 0.12));
+  width: min(100%, 64rem);
+  transform: translateX(calc(var(--carousel-offset, 0) * 22%)) translateZ(calc(var(--carousel-offset, 0) * -180px)) rotateY(calc(var(--carousel-offset, 0) * -9deg)) scale(calc(1 - min(abs(var(--carousel-offset, 0)), 2) * 0.1));
   opacity: calc(1 - min(abs(var(--carousel-offset, 0)), 2) * 0.34);
   filter: blur(calc(min(abs(var(--carousel-offset, 0)), 2) * 1.5px));
   pointer-events: none;
@@ -158,7 +160,7 @@
 .project-carousel-slide[data-offset="2"], .project-carousel-slide[data-offset="-2"] { z-index: 1; opacity: 0.05; }
 .project-carousel-slide:not([data-offset="0"]):not([data-offset="1"]):not([data-offset="-1"]):not([data-offset="2"]):not([data-offset="-2"]) { --carousel-offset: 3; opacity: 0; }
 @media (max-width: 767px) {
-  .project-carousel { min-height: 32rem; }
+  .project-carousel { min-height: 0; }
   .project-carousel-slide { width: 100%; transform: translateX(calc(var(--carousel-offset, 0) * 13%)) translateZ(calc(var(--carousel-offset, 0) * -120px)) rotateY(calc(var(--carousel-offset, 0) * -6deg)) scale(calc(1 - min(abs(var(--carousel-offset, 0)), 2) * 0.08)); }
 }
 @media (prefers-reduced-motion: reduce) {

@@ -7,11 +7,11 @@ export function EducationSection({ language }: { language: Language }) {
 
   return (
     <section className="section-rule">
-      <div className="section-shell py-14 sm:py-16 lg:py-20">
-        <div className="grid gap-8 lg:grid-cols-[minmax(180px,0.65fr)_minmax(0,1.6fr)] lg:gap-12">
+      <div className="section-shell section-pad">
+        <div className="editorial-grid">
           <div>
             <p className="section-kicker">04 / {t.education.eyebrow}</p>
-            <h2 className="text-3xl font-medium tracking-[-0.04em]">{t.education.title}</h2>
+            <h2 className="section-title">{t.education.title}</h2>
           </div>
           <div className="divide-y divide-border border-y border-border">
             {education.map((item) => (

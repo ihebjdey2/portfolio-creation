@@ -13,7 +13,7 @@ export function ExperienceSection({ language }: { language: Language }) {
 
         <div className="mt-10 border-t border-border lg:mt-14">
           {experiences.map((experience) => (
-            <article key={`${experience.company}-${experience.period}`} className="grid gap-5 border-b border-border py-8 lg:grid-cols-[minmax(180px,0.65fr)_minmax(0,1.6fr)] lg:gap-12 lg:py-10">
+            <article key={`${experience.company}-${experience.period}`} className="editorial-grid border-b border-border py-8 lg:py-10">
               <div>
                 <p className="font-mono text-xs text-primary">{experience.period}</p>
                 <p className="mt-2 text-sm font-medium">{experience.company}</p>

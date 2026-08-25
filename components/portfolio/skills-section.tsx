@@ -8,12 +8,12 @@ export function SkillsSection({ language }: { language: Language }) {
   return (
     <section id="skills" className="section-rule scroll-mt-20">
       <div className="section-shell section-pad">
-        <div className="grid gap-6 md:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)] md:items-end">
+        <div className="editorial-grid items-end">
           <div>
             <p className="section-kicker">02 / {t.skills.eyebrow}</p>
             <h2 className="section-title">{t.skills.title}</h2>
           </div>
-          <p className="max-w-2xl text-base leading-7 text-muted-foreground md:justify-self-end">{t.skills.subtitle}</p>
+          <p className="max-w-2xl text-base leading-7 text-muted-foreground">{t.skills.subtitle}</p>
         </div>
 
         <div className="mt-10 grid border-l border-t border-border sm:grid-cols-2 lg:mt-14 lg:grid-cols-3">
