@@ -11,7 +11,7 @@ export function ProjectCard({ project, language, index }: { project: Project; la
   return (
     <article className="group grid gap-8 border-b border-border p-5 last:border-b-0 hover:bg-surface sm:p-8 lg:grid-cols-[5rem_minmax(0,1fr)] lg:gap-8 lg:p-10 [content-visibility:auto] [contain-intrinsic-size:auto_520px]">
       <div className="flex items-start justify-between lg:block"><p className="font-display text-3xl tracking-[-0.07em] text-primary/80">{String(index + 1).padStart(2, '0')}</p><p className="mt-8 hidden max-w-32 font-mono text-[0.65rem] uppercase leading-5 tracking-[0.12em] text-muted-foreground lg:block">{localize(project.category, language)}</p></div>
-      <div className={`grid gap-8 ${project.heroMedia ? 'xl:grid-cols-[minmax(0,1fr)_minmax(300px,0.8fr)] xl:items-start xl:gap-12' : ''}`}>
+      <div className="flex min-w-0 flex-col gap-8">
         <div>
           <div className="mb-5 flex items-center gap-3 font-mono text-[0.65rem] uppercase tracking-[0.12em] text-muted-foreground lg:hidden"><span>{localize(project.category, language)}</span><span className="text-primary">/</span><span>Case study</span></div>
           <h3 className="font-display text-3xl font-medium leading-[0.95] tracking-[-0.06em] sm:text-4xl lg:text-5xl"><Link href={`/projects/${project.slug}`} className="rounded-sm group-hover:text-primary">{project.title}</Link></h3>
