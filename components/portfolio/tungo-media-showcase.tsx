@@ -17,7 +17,7 @@ function RoleCard({ group, language }: { group: TungoMediaGroup; language: Langu
           width={preview.width}
           height={preview.height}
           sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 1023px) 45vw, 18rem"
-          className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-[1.025]"
+          className="h-full w-full object-contain object-center"
         />
       </div>
       <div className="border-t border-border p-4">

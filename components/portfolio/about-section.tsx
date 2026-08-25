@@ -7,7 +7,7 @@ export function AboutSection({ language }: { language: Language }) {
 
   return (
     <section id="about" className="section-rule scroll-mt-20">
-      <div className="section-shell section-pad grid gap-8 lg:grid-cols-[minmax(180px,0.65fr)_minmax(0,1.6fr)] lg:gap-12">
+      <div className="section-shell section-pad editorial-grid">
         <div>
           <p className="section-kicker">05 / {t.about.eyebrow}</p>
           <h2 className="section-title">{t.about.title}</h2>

@@ -60,7 +60,7 @@ export function ContactSection({ language }: { language: Language }) {
   return (
     <section id="contact" className="section-rule scroll-mt-20 bg-surface/50">
       <div className="section-shell section-pad">
-        <div className="grid gap-12 lg:grid-cols-[minmax(0,0.8fr)_minmax(420px,1.2fr)] lg:gap-20">
+        <div className="editorial-grid lg:items-start">
           <div>
             <p className="section-kicker">06 / {t.contact.eyebrow}</p>
             <h2 className="section-title max-w-md">{t.contact.title}</h2>

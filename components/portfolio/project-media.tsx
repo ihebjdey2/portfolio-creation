@@ -14,7 +14,7 @@ export function ProjectMedia({ media, language, hero = false, expandable = false
       width={media.width}
       height={media.height}
       sizes={hero ? '(max-width: 1023px) calc(100vw - 40px), 72rem' : '(max-width: 767px) calc(100vw - 40px), 42rem'}
-      className={`${hero ? 'max-h-[44rem]' : 'max-h-[36rem]'} h-auto w-full object-contain transition-transform duration-300 ${expandable ? 'group-hover:scale-[1.015]' : ''}`}
+      className={`${hero ? 'max-h-[44rem]' : 'max-h-[36rem]'} h-auto w-full object-contain object-center`}
     />
   )
 

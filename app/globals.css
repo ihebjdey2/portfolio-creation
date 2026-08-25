@@ -4,21 +4,21 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: oklch(0.975 0.004 250);
-  --foreground: oklch(0.18 0.012 255);
-  --surface: oklch(0.995 0.002 250);
-  --surface-muted: oklch(0.945 0.007 250);
-  --primary: oklch(0.52 0.19 255);
-  --primary-foreground: oklch(0.99 0 0);
-  --muted: oklch(0.925 0.008 250);
-  --muted-foreground: oklch(0.47 0.018 255);
-  --border: oklch(0.875 0.012 250);
-  --input: oklch(0.9 0.01 250);
-  --ring: oklch(0.56 0.19 255);
+  --background: oklch(0.965 0.012 92);
+  --foreground: oklch(0.16 0.018 95);
+  --surface: oklch(0.985 0.01 92);
+  --surface-muted: oklch(0.915 0.018 92);
+  --primary: oklch(0.78 0.19 112);
+  --primary-foreground: oklch(0.14 0.02 95);
+  --muted: oklch(0.91 0.015 92);
+  --muted-foreground: oklch(0.45 0.025 95);
+  --border: oklch(0.78 0.025 92);
+  --input: oklch(0.82 0.02 92);
+  --ring: oklch(0.72 0.17 112);
   --destructive: oklch(0.57 0.22 27);
   --destructive-foreground: oklch(0.99 0 0);
-  --radius: 0.875rem;
-  --shadow-soft: 0 18px 50px -30px oklch(0.2 0.03 255 / 0.3);
+  --radius: 0.35rem;
+  --shadow-soft: 0 24px 70px -38px oklch(0.16 0.02 95 / 0.45);
   --card: var(--surface);
   --card-foreground: var(--foreground);
   --popover: var(--surface);
@@ -30,25 +30,24 @@
 }
 
 .dark {
-  --background: oklch(0.13 0.012 255);
-  --foreground: oklch(0.94 0.006 250);
-  --surface: oklch(0.17 0.014 255);
-  --surface-muted: oklch(0.205 0.015 255);
-  --primary: oklch(0.7 0.15 252);
-  --primary-foreground: oklch(0.12 0.02 255);
-  --muted: oklch(0.235 0.014 255);
-  --muted-foreground: oklch(0.68 0.014 250);
-  --border: oklch(0.27 0.015 255);
-  --input: oklch(0.29 0.016 255);
-  --ring: oklch(0.7 0.15 252);
-  --destructive: oklch(0.67 0.2 25);
-  --destructive-foreground: oklch(0.99 0 0);
-  --shadow-soft: 0 20px 60px -34px oklch(0 0 0 / 0.75);
+  --background: oklch(0.13 0.018 95);
+  --foreground: oklch(0.94 0.018 92);
+  --surface: oklch(0.17 0.018 95);
+  --surface-muted: oklch(0.21 0.022 95);
+  --primary: oklch(0.82 0.19 112);
+  --primary-foreground: oklch(0.13 0.018 95);
+  --muted: oklch(0.23 0.02 95);
+  --muted-foreground: oklch(0.68 0.02 92);
+  --border: oklch(0.3 0.025 95);
+  --input: oklch(0.28 0.022 95);
+  --ring: oklch(0.82 0.19 112);
+  --shadow-soft: 0 24px 80px -38px oklch(0 0 0 / 0.8);
 }
 
 @theme inline {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-space-grotesk);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-surface: var(--surface);
@@ -61,97 +60,109 @@
   --color-primary-foreground: var(--primary-foreground);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --radius-sm: calc(var(--radius) - 6px);
-  --radius-md: calc(var(--radius) - 3px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 5px);
+  --radius-sm: calc(var(--radius) - 0.1rem);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 0.15rem);
+  --radius-xl: calc(var(--radius) + 0.3rem);
 }
 
 @layer base {
   * { @apply border-border; }
-
-  html {
-    scroll-behavior: smooth;
-    scrollbar-gutter: stable;
-  }
-
+  html { scroll-behavior: smooth; scrollbar-gutter: stable; }
   body {
     @apply bg-background font-sans text-foreground antialiased;
     min-width: 320px;
-    background-image:
-      radial-gradient(circle at 8% 0%, color-mix(in oklab, var(--primary) 7%, transparent) 0, transparent 28rem),
-      linear-gradient(color-mix(in oklab, var(--border) 22%, transparent) 1px, transparent 1px),
-      linear-gradient(90deg, color-mix(in oklab, var(--border) 22%, transparent) 1px, transparent 1px);
-    background-size: auto, 64px 64px, 64px 64px;
-    background-attachment: fixed;
+    background-image: linear-gradient(color-mix(in oklab, var(--border) 18%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in oklab, var(--border) 18%, transparent) 1px, transparent 1px);
+    background-size: 72px 72px;
   }
-
-  ::selection { background: color-mix(in oklab, var(--primary) 28%, transparent); }
-
-  a, button, input, textarea {
-    transition-duration: 180ms;
-    transition-property: color, background-color, border-color, box-shadow, opacity, transform;
-    transition-timing-function: ease-out;
-  }
-
+  ::selection { background: var(--primary); color: var(--primary-foreground); }
+  a, button, input, textarea { transition: color 180ms ease-out, background-color 180ms ease-out, border-color 180ms ease-out, box-shadow 180ms ease-out, opacity 180ms ease-out, transform 180ms ease-out; }
   button, a { -webkit-tap-highlight-color: transparent; }
-
-  :focus-visible {
-    outline: 2px solid var(--ring);
-    outline-offset: 3px;
-  }
+  :focus-visible { outline: 2px solid var(--ring); outline-offset: 3px; }
 }
 
 @layer components {
-  .section-shell { @apply mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8; }
-  .section-pad { @apply py-16 sm:py-20 lg:py-28; }
+  .section-shell { @apply mx-auto w-full max-w-[74rem] px-5 sm:px-8 lg:px-8; }
+  .section-pad { @apply py-20 sm:py-24 lg:py-32; }
   .section-rule { @apply border-t border-border/80; }
-  .section-kicker { @apply mb-3 font-mono text-[0.7rem] font-medium tracking-[0.14em] text-primary; }
-  .section-title { @apply text-3xl font-medium tracking-[-0.04em] sm:text-4xl lg:text-5xl; }
+  .section-kicker { @apply mb-4 font-mono text-[0.68rem] font-medium uppercase tracking-[0.18em] text-muted-foreground; }
+  .section-title { @apply font-display text-4xl font-medium leading-[0.96] tracking-[-0.055em] sm:text-5xl lg:text-6xl; }
   .section-intro { @apply mt-5 max-w-2xl text-base leading-7 text-muted-foreground sm:text-lg; }
-  .tech-tag { @apply rounded-full border border-border/80 bg-surface-muted/70 px-2.5 py-1 font-mono text-[0.68rem] text-muted-foreground; }
+  .editorial-grid { @apply grid gap-8 lg:grid-cols-[minmax(200px,0.72fr)_minmax(0,1.65fr)] lg:gap-16; }
+  .tech-tag { @apply rounded-sm border border-border/80 bg-surface-muted/60 px-2.5 py-1 font-mono text-[0.66rem] text-muted-foreground; }
   .text-link { @apply inline-flex items-center gap-1.5 rounded-sm font-medium text-foreground hover:text-primary; }
   .text-link svg { transition: transform 180ms ease-out; }
-  .text-link:hover svg { transform: translateX(2px); }
+  .text-link:hover svg { transform: translate(2px, -2px); }
   .surface-shadow { box-shadow: var(--shadow-soft); }
 }
 
-@keyframes reveal-up {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+@keyframes reveal-up { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+.scroll-in-left, .scroll-in-right, .scroll-in-up, .scroll-in-down { animation: reveal-up 600ms ease-out forwards; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
+@media (max-width: 767px) { body { background-size: 48px 48px; } }
 
-.scroll-in-left, .scroll-in-right, .scroll-in-up, .scroll-in-down {
-  animation: reveal-up 500ms ease-out forwards;
-}
+.font-display { font-family: var(--font-space-grotesk), var(--font-geist-sans), sans-serif; }
+.hero-outline { color: transparent; -webkit-text-stroke: 1px color-mix(in oklab, var(--foreground) 65%, transparent); }
+.hero-outline:hover { color: var(--primary); -webkit-text-stroke-color: var(--primary); }
+.marquee-line { border-block: 1px solid var(--border); overflow: hidden; white-space: nowrap; }
+.marquee-line span { display: inline-block; animation: marquee 24s linear infinite; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+@media (prefers-reduced-motion: reduce) { .marquee-line span { animation: none; } }
+.eyebrow-dot { display: inline-block; width: 0.45rem; height: 0.45rem; border-radius: 999px; background: var(--primary); box-shadow: 0 0 0 5px color-mix(in oklab, var(--primary) 18%, transparent); }
+.btn-primary { @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-sm bg-primary px-5 font-medium text-primary-foreground hover:-translate-y-0.5 hover:opacity-90; }
+.btn-quiet { @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-sm border border-border bg-surface/60 px-5 font-medium hover:border-foreground/40 hover:bg-surface; }
 
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  body { background-attachment: scroll; }
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    scroll-behavior: auto !important;
-    transition-duration: 0.01ms !important;
-  }
-  .scroll-in-left, .scroll-in-right, .scroll-in-up, .scroll-in-down {
-    opacity: 1 !important;
-    transform: none !important;
-  }
-}
+@media (prefers-reduced-motion: reduce) { body { background-attachment: scroll; } }
 
+.main-gradient { background: linear-gradient(135deg, color-mix(in oklab, var(--primary) 10%, var(--surface)), var(--surface)); }
+
+/* Keep the portfolio's existing image and component styling responsive. */
+.portfolio-image { @apply object-cover object-top; }
+
+/* Deliberately quiet scrollbar for the editorial canvas. */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-thumb { background: var(--border); border: 3px solid var(--background); border-radius: 999px; }
+::-webkit-scrollbar-track { background: var(--background); }
+
+@media (max-width: 767px) { .marquee-line span { animation-duration: 18s; } }
+
+.project-carousel {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  min-height: 34rem;
+  overflow-x: clip;
+  place-items: center;
+  perspective: 1500px;
+  touch-action: pan-y;
+  user-select: none;
+}
+.project-carousel-slide {
+  grid-area: 1 / 1;
+  width: min(100%, 64rem);
+  transform: translateX(calc(var(--carousel-offset, 0) * 22%)) translateZ(calc(var(--carousel-offset, 0) * -180px)) rotateY(calc(var(--carousel-offset, 0) * -9deg)) scale(calc(1 - min(abs(var(--carousel-offset, 0)), 2) * 0.1));
+  opacity: calc(1 - min(abs(var(--carousel-offset, 0)), 2) * 0.34);
+  filter: blur(calc(min(abs(var(--carousel-offset, 0)), 2) * 1.5px));
+  pointer-events: none;
+  transition: transform 700ms cubic-bezier(.2,.8,.2,1), opacity 500ms ease, filter 500ms ease;
+  will-change: transform, opacity;
+}
+.project-carousel-slide[data-offset="0"] { --carousel-offset: 0; z-index: 3; pointer-events: auto; opacity: 1; filter: none; }
+.project-carousel-slide[data-offset="0"] > article { background: var(--surface); box-shadow: var(--shadow-soft); }
+.project-carousel-slide[data-offset="1"], .project-carousel-slide[data-offset="-1"] { z-index: 2; opacity: 0.16; }
+.project-carousel-slide[data-offset="2"], .project-carousel-slide[data-offset="-2"] { z-index: 1; opacity: 0.05; }
+.project-carousel-slide:not([data-offset="0"]):not([data-offset="1"]):not([data-offset="-1"]):not([data-offset="2"]):not([data-offset="-2"]) { --carousel-offset: 3; opacity: 0; }
 @media (max-width: 767px) {
-  body {
-    background-size: auto, 48px 48px, 48px 48px;
-    background-attachment: scroll;
-  }
+  .project-carousel { min-height: 0; }
+  .project-carousel-slide { width: 100%; transform: translateX(calc(var(--carousel-offset, 0) * 13%)) translateZ(calc(var(--carousel-offset, 0) * -120px)) rotateY(calc(var(--carousel-offset, 0) * -6deg)) scale(calc(1 - min(abs(var(--carousel-offset, 0)), 2) * 0.08)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .project-carousel-slide { transition: none; filter: none; }
 }
