@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { ProjectCard } from '@/components/project-card'
 import type { Language } from '@/lib/language-context'
@@ -9,17 +9,40 @@ import { translations } from '@/lib/translations'
 
 export function ProjectsSection({ language }: { language: Language }) {
   const t = translations[language]
-  const trackRef = useRef<HTMLDivElement>(null)
   const [activeIndex, setActiveIndex] = useState(0)
+  const [isPaused, setIsPaused] = useState(false)
+  const [dragStart, setDragStart] = useState<number | null>(null)
+  const touchStart = useRef<number | null>(null)
 
-  const move = (direction: 'next' | 'previous') => {
-    const nextIndex = direction === 'next'
-      ? Math.min(activeIndex + 1, projects.length - 1)
-      : Math.max(activeIndex - 1, 0)
-    const track = trackRef.current
-    const card = track?.children[nextIndex] as HTMLElement | undefined
-    card?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' })
-    setActiveIndex(nextIndex)
+  const move = useCallback((direction: 'next' | 'previous' | number) => {
+    setActiveIndex((current) => {
+      if (typeof direction === 'number') return direction
+      const next = direction === 'next' ? current + 1 : current - 1
+      return Math.max(0, Math.min(next, projects.length - 1))
+    })
+  }, [])
+
+  useEffect(() => {
+    if (isPaused) return
+    const timer = window.setInterval(() => move('next'), 6500)
+    return () => window.clearInterval(timer)
+  }, [isPaused, move])
+
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'ArrowLeft') move('previous')
+      if (event.key === 'ArrowRight') move('next')
+    }
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [move])
+
+  const handlePointerDown = (clientX: number) => setDragStart(clientX)
+  const handlePointerUp = (clientX: number) => {
+    if (dragStart === null) return
+    const distance = clientX - dragStart
+    if (Math.abs(distance) > 50) move(distance < 0 ? 'next' : 'previous')
+    setDragStart(null)
   }
 
   return (
@@ -32,24 +55,37 @@ export function ProjectsSection({ language }: { language: Language }) {
           </div>
           <div className="flex items-end justify-between gap-6 md:max-w-2xl">
             <p className="text-base leading-7 text-muted-foreground">{t.projects.subtitle}</p>
-            <div className="hidden shrink-0 gap-2 sm:flex">
-              <button type="button" onClick={() => move('previous')} disabled={activeIndex === 0} aria-label="Previous project" className="grid size-11 place-items-center rounded-full border border-border text-foreground transition hover:border-primary hover:text-primary disabled:cursor-not-allowed disabled:opacity-30"><ArrowLeft aria-hidden="true" /></button>
-              <button type="button" onClick={() => move('next')} disabled={activeIndex === projects.length - 1} aria-label="Next project" className="grid size-11 place-items-center rounded-full border border-border text-foreground transition hover:border-primary hover:text-primary disabled:cursor-not-allowed disabled:opacity-30"><ArrowRight aria-hidden="true" /></button>
+            <div className="flex shrink-0 gap-2">
+              <button type="button" onClick={() => move('previous')} disabled={activeIndex === 0} aria-label="Previous project" className="grid size-11 place-items-center rounded-full border border-border text-foreground hover:border-primary hover:text-primary disabled:cursor-not-allowed disabled:opacity-30"><ArrowLeft aria-hidden="true" /></button>
+              <button type="button" onClick={() => move('next')} disabled={activeIndex === projects.length - 1} aria-label="Next project" className="grid size-11 place-items-center rounded-full border border-border text-foreground hover:border-primary hover:text-primary disabled:cursor-not-allowed disabled:opacity-30"><ArrowRight aria-hidden="true" /></button>
             </div>
           </div>
         </div>
 
-        <div ref={trackRef} className="flex snap-x snap-mandatory gap-5 overflow-x-auto overscroll-x-contain pb-5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          {projects.map((project, index) => (
-            <div key={project.slug} className="w-[min(86vw,680px)] shrink-0 snap-start">
-              <ProjectCard project={project} language={language} index={index} />
-            </div>
-          ))}
+        <div
+          className="project-carousel"
+          role="region"
+          aria-roledescription="carousel"
+          aria-label={language === 'en' ? 'Selected projects' : 'Projets sélectionnés'}
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => { setIsPaused(false); setDragStart(null) }}
+          onMouseDown={(event) => handlePointerDown(event.clientX)}
+          onMouseUp={(event) => handlePointerUp(event.clientX)}
+          onTouchStart={(event) => { touchStart.current = event.touches[0]?.clientX ?? null; setIsPaused(true) }}
+          onTouchEnd={(event) => { if (touchStart.current !== null) handlePointerUp(event.changedTouches[0]?.clientX ?? touchStart.current); touchStart.current = null; setIsPaused(false) }}
+        >
+          {projects.map((project, index) => {
+            const offset = index - activeIndex
+            return (
+              <div key={project.slug} className="project-carousel-slide" data-active={index === activeIndex} data-offset={offset} aria-hidden={index !== activeIndex}>
+                <ProjectCard project={project} language={language} index={index} />
+              </div>
+            )
+          })}
         </div>
-        <div className="mt-3 flex items-center justify-between font-mono text-[0.65rem] uppercase tracking-[0.12em] text-muted-foreground">
+        <div className="mt-6 flex items-center justify-between font-mono text-[0.65rem] uppercase tracking-[0.12em] text-muted-foreground">
           <span>{String(activeIndex + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}</span>
-          <span className="sm:hidden">Swipe to explore</span>
-          <div className="flex gap-1.5" aria-hidden="true">{projects.map((project, index) => <span key={project.slug} className={`h-1 w-8 transition-colors ${index === activeIndex ? 'bg-primary' : 'bg-border'}`} />)}</div>
+          <div className="flex gap-1.5" role="tablist" aria-label="Choose project">{projects.map((project, index) => <button key={project.slug} type="button" role="tab" aria-selected={index === activeIndex} aria-label={`Show ${project.title}`} onClick={() => move(index)} className={`h-1.5 w-8 transition-colors ${index === activeIndex ? 'bg-primary' : 'bg-border'}`} />)}</div>
         </div>
       </div>
     </section>

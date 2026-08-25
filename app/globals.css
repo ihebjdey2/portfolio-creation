@@ -131,3 +131,36 @@
 ::-webkit-scrollbar-track { background: var(--background); }
 
 @media (max-width: 767px) { .marquee-line span { animation-duration: 18s; } }
+
+.project-carousel {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  min-height: 35rem;
+  place-items: center;
+  perspective: 1500px;
+  touch-action: pan-y;
+  user-select: none;
+}
+.project-carousel-slide {
+  grid-area: 1 / 1;
+  width: min(100%, 48rem);
+  transform: translateX(calc(var(--carousel-offset, 0) * 28%)) translateZ(calc(var(--carousel-offset, 0) * -180px)) rotateY(calc(var(--carousel-offset, 0) * -10deg)) scale(calc(1 - min(abs(var(--carousel-offset, 0)), 2) * 0.12));
+  opacity: calc(1 - min(abs(var(--carousel-offset, 0)), 2) * 0.34);
+  filter: blur(calc(min(abs(var(--carousel-offset, 0)), 2) * 1.5px));
+  pointer-events: none;
+  transition: transform 700ms cubic-bezier(.2,.8,.2,1), opacity 500ms ease, filter 500ms ease;
+  will-change: transform, opacity;
+}
+.project-carousel-slide[data-offset="0"] { --carousel-offset: 0; z-index: 3; pointer-events: auto; opacity: 1; filter: none; }
+.project-carousel-slide[data-offset="0"] > article { background: var(--surface); box-shadow: var(--shadow-soft); }
+.project-carousel-slide[data-offset="1"], .project-carousel-slide[data-offset="-1"] { z-index: 2; opacity: 0.16; }
+.project-carousel-slide[data-offset="2"], .project-carousel-slide[data-offset="-2"] { z-index: 1; opacity: 0.05; }
+.project-carousel-slide:not([data-offset="0"]):not([data-offset="1"]):not([data-offset="-1"]):not([data-offset="2"]):not([data-offset="-2"]) { --carousel-offset: 3; opacity: 0; }
+@media (max-width: 767px) {
+  .project-carousel { min-height: 32rem; }
+  .project-carousel-slide { width: 100%; transform: translateX(calc(var(--carousel-offset, 0) * 13%)) translateZ(calc(var(--carousel-offset, 0) * -120px)) rotateY(calc(var(--carousel-offset, 0) * -6deg)) scale(calc(1 - min(abs(var(--carousel-offset, 0)), 2) * 0.08)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .project-carousel-slide { transition: none; filter: none; }
+}
