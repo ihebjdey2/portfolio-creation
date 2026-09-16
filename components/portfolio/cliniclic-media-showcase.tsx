@@ -17,7 +17,7 @@ function ExperienceCard({ group, language }: { group: CliniclicMediaGroup; langu
           width={preview.width}
           height={preview.height}
           sizes="(max-width: 639px) calc(100vw - 40px), (max-width: 1023px) 45vw, 26rem"
-          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+          className="h-full w-full object-contain object-center"
         />
       </div>
       <div className="border-t border-border p-4">
