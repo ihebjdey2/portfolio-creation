@@ -36,7 +36,7 @@ export const viewport: Viewport = { colorScheme: 'light dark', themeColor: [{ me
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${geist.variable} ${geistMono.variable} ${spaceGrotesk.variable} bg-background`} suppressHydrationWarning>
+    <html lang="en" className={`${geist.variable} ${geistMono.variable} ${spaceGrotesk.variable} bg-background`} data-scroll-behavior="smooth" suppressHydrationWarning>
       <body>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, '\\u003c') }} />
         <ThemeProvider><LanguageProvider><ScrollProgress />{children}{process.env.VERCEL === '1' && <Analytics />}</LanguageProvider></ThemeProvider>

@@ -1,43 +1,25 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import { fireEvent, render, screen, within } from '@testing-library/react'
 import { describe, expect, it } from 'vitest'
 import { ProjectsSection } from '@/components/portfolio/projects-section'
 
-function swipe(element: HTMLElement, from: number, to: number) {
-  const dispatchPointerEvent = (type: 'pointerdown' | 'pointerup', clientX: number) => {
-    const event = new Event(type, { bubbles: true, cancelable: true })
-    Object.defineProperties(event, {
-      clientX: { value: clientX },
-      isPrimary: { value: true },
-      pointerId: { value: 1 },
-      pointerType: { value: 'touch' },
-    })
-    fireEvent(element, event)
-  }
-
-  dispatchPointerEvent('pointerdown', from)
-  dispatchPointerEvent('pointerup', to)
-}
-
-describe('ProjectsSection mobile interaction', () => {
-  it('moves to the next and previous project with horizontal pointer swipes', () => {
+describe('Portfolio overview', () => {
+  it('keeps project previews accessible as links', () => {
     render(<ProjectsSection language="en" />)
 
-    const carousel = screen.getByRole('region', { name: 'Selected projects' })
-    expect(screen.getByText(/^01 \/ \d+$/)).toBeInTheDocument()
-
-    swipe(carousel, 240, 120)
-    expect(screen.getByText(/^02 \/ \d+$/)).toBeInTheDocument()
-
-    swipe(carousel, 120, 240)
-    expect(screen.getByText(/^01 \/ \d+$/)).toBeInTheDocument()
+    const previews = screen.getByLabelText('Animated project previews')
+    expect(within(previews).getByRole('link', { name: /AgriDiagnose AI/ })).toHaveAttribute('href', '/projects/agridiagnose-ai')
+    expect(within(previews).getAllByRole('link')).toHaveLength(5)
   })
 
-  it('ignores short horizontal movements', () => {
+  it('opens the skills matrix and changes its category', () => {
     render(<ProjectsSection language="en" />)
 
-    const carousel = screen.getByRole('region', { name: 'Selected projects' })
-    swipe(carousel, 180, 160)
+    fireEvent.click(screen.getByRole('button', { name: 'Explore skills matrix' }))
+    const dialog = screen.getByRole('dialog', { name: 'Skills Matrix' })
+    expect(within(dialog).getByRole('button', { name: 'AI / ML' })).toHaveAttribute('aria-pressed', 'true')
 
-    expect(screen.getByText(/^01 \/ \d+$/)).toBeInTheDocument()
+    fireEvent.click(within(dialog).getByRole('button', { name: 'Frontend' }))
+    expect(within(dialog).getByRole('button', { name: 'Frontend' })).toHaveAttribute('aria-pressed', 'true')
+    expect(within(dialog).getAllByText('Tailwind CSS')).toHaveLength(2)
   })
 })

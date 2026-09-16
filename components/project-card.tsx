@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { ArrowRight, ArrowUpRight, Github } from 'lucide-react'
+import { ArrowUpRight, Github } from 'lucide-react'
 import type { Language } from '@/lib/language-context'
 import type { Project } from '@/lib/portfolio-data'
 import { localize } from '@/lib/portfolio-data'
@@ -8,19 +8,36 @@ import { translations } from '@/lib/translations'
 
 export function ProjectCard({ project, language, index }: { project: Project; language: Language; index: number }) {
   const t = translations[language]
+  const featured = index === 0
+
   return (
-    <article className="group grid gap-6 border border-border bg-background/95 p-5 hover:bg-surface sm:p-8 lg:grid-cols-[4rem_minmax(0,1fr)] lg:gap-8 lg:p-10 [content-visibility:auto] [contain-intrinsic-size:auto_520px]">
-      <div className="flex items-start justify-between lg:block"><p className="font-display text-3xl tracking-[-0.07em] text-primary/80">{String(index + 1).padStart(2, '0')}</p><p className="mt-8 hidden max-w-32 font-mono text-[0.65rem] uppercase leading-5 tracking-[0.12em] text-muted-foreground lg:block">{localize(project.category, language)}</p></div>
-      <div className="grid min-w-0 gap-8 lg:grid-cols-[minmax(0,1.08fr)_minmax(280px,0.92fr)] lg:items-stretch">
-        <div className="flex min-w-0 flex-col">
-          <div className="mb-5 flex min-h-4 items-center gap-3 font-mono text-[0.65rem] uppercase tracking-[0.12em] text-muted-foreground lg:hidden"><span>{localize(project.category, language)}</span><span className="text-primary">/</span><span>Case study</span></div>
-          <h3 className="font-display text-3xl font-medium leading-[0.98] tracking-[-0.055em] sm:text-4xl lg:text-[2.65rem]"><Link href={`/projects/${project.slug}`} className="rounded-sm group-hover:text-primary">{project.title}</Link></h3>
-          <p className="mt-5 max-w-3xl text-sm leading-6 text-muted-foreground sm:text-base sm:leading-7">{localize(project.description, language)}</p>
-          {project.proofPoints ? <ul className="mt-7 grid gap-px overflow-hidden border border-border bg-border sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">{project.proofPoints[language].map((point) => <li key={point} className="bg-surface-muted px-4 py-3 font-mono text-[0.68rem] leading-5 text-foreground">{point}</li>)}</ul> : null}
-          <ul className="mt-7 flex flex-wrap gap-2" aria-label={language === 'en' ? 'Technologies' : 'Technologies'}>{project.technologies.slice(0, 6).map((technology) => <li key={technology} className="tech-tag">{technology}</li>)}</ul>
-          <div className="mt-8 flex min-h-6 flex-wrap gap-x-6 gap-y-3 text-sm"><Link href={`/projects/${project.slug}`} className="text-link text-primary">{t.projects.caseStudy}<ArrowRight size={15} aria-hidden="true" /></Link><a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="text-link"><Github size={15} aria-hidden="true" />{t.projects.github}<ArrowUpRight size={12} aria-hidden="true" /></a></div>
+    <article className={`project-slide-card group ${featured ? 'project-slide-card-featured' : ''}`}>
+      <Link href={`/projects/${project.slug}`} className="absolute inset-0 z-10 rounded-[inherit]" aria-label={`${t.projects.caseStudy}: ${project.title}`} />
+      <div className="relative z-0 flex h-full min-h-0 flex-col">
+        <div className="flex items-start justify-between gap-4">
+          <div className="grid size-10 shrink-0 place-items-center rounded-xl bg-primary text-sm font-bold text-primary-foreground">{String(index + 1).padStart(2, '0')}</div>
+          <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="relative z-20 grid size-10 shrink-0 place-items-center rounded-full border border-border bg-surface text-muted-foreground hover:border-primary hover:text-primary" aria-label={`${project.title} on GitHub`}><Github size={17} aria-hidden="true" /></a>
         </div>
-        {project.heroMedia ? <figure className="flex aspect-[16/10] min-h-64 items-center justify-center overflow-hidden border border-border bg-surface-muted p-2 lg:aspect-auto lg:min-h-full"><Image src={project.heroMedia.src} alt={localize(project.heroMedia.alt, language)} width={project.heroMedia.width} height={project.heroMedia.height} sizes="(max-width: 767px) calc(100vw - 40px), (max-width: 1279px) 40vw, 30rem" className="max-h-full max-w-full object-contain object-center" /></figure> : null}
+
+        <div className="project-slide-copy mt-5 min-w-0">
+          <p className="font-mono text-[0.6rem] font-semibold uppercase tracking-[0.12em] text-primary">{localize(project.category, language)}</p>
+          <h3 className="mt-2 font-display text-xl font-bold leading-tight tracking-[-0.045em] sm:text-2xl">{project.title}</h3>
+          <p className="mt-3 line-clamp-2 text-sm leading-6 text-muted-foreground">{localize(project.description, language)}</p>
+        </div>
+
+        <ul className="project-slide-tech mt-4 flex flex-wrap gap-1.5" aria-label={language === 'en' ? 'Technologies' : 'Technologies'}>
+          {project.technologies.slice(0, 3).map((technology) => <li key={technology} className="tech-tag">{technology}</li>)}
+        </ul>
+
+        <div className="project-slide-action mt-auto flex items-end justify-between gap-3 pt-5">
+          <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-foreground group-hover:text-primary">{t.projects.caseStudy}<ArrowUpRight size={14} aria-hidden="true" /></span>
+        </div>
+
+        {project.heroMedia ? (
+          <div className="project-slide-media">
+            <Image src={project.heroMedia.src} alt="" width={project.heroMedia.width} height={project.heroMedia.height} loading={featured ? 'eager' : 'lazy'} sizes={featured ? '(max-width: 767px) calc(100vw - 72px), 34vw' : '(max-width: 767px) calc(100vw - 72px), 22vw'} className="aspect-[16/10] size-full object-cover object-top transition-transform duration-500 group-hover:scale-[1.025]" />
+          </div>
+        ) : null}
       </div>
     </article>
   )
